@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ہیٹ پروفنگ ایسٹیمیٹر | Heatproofing Estimator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        body,
+        button,
+        input,
+        textarea,
+        select,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ul,
+        li,
+        a,
+        span,
+        div {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif !important;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px 10px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .ur-font {
+            margin-top: 0;
+        }
+
+        .hp-estimator-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 25px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .hp-header {
+            text-align: center;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .hp-title {
+            color: #1a73e8;
+            margin-bottom: 5px;
+            font-size: 26px;
+        }
+
+        .hp-desc {
+            color: #666;
+            margin: 0;
+            font-size: 16px;
+            line-height: 2.0;
+        }
+
+        .hp-input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .hp-input-group label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #444;
+            font-size: 16px;
+        }
+
+        .hp-input-group input {
+            padding: 14px;
+            font-size: 18px;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            direction: ltr;
+            text-align: left;
+            transition: border-color 0.3s;
+        }
+
+        .hp-input-group input:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+
+        .hp-btn {
+            padding: 12px 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.1s, background 0.3s;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .hp-btn:active {
+            transform: scale(0.98);
+        }
+
+        .hp-btn-primary {
+            background: #1a73e8;
+            color: #fff;
+            width: 100%;
+            font-size: 18px;
+            padding: 14px 20px;
+        }
+
+        .hp-btn-primary:hover {
+            background: #1557b0;
+        }
+
+        .hp-btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .hp-btn-whatsapp:hover {
+            background: #128C7E;
+        }
+
+        .hp-btn-video {
+            background: linear-gradient(135deg, #FF0000, #cc0000);
+            color: #fff;
+            font-size: 14px;
+            padding: 10px 12px;
+            margin-top: 10px;
+            width: calc(50% - 7px);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+            border: 1px solid #cc0000;
+        }
+
+        .hp-btn-video:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(229, 9, 20, 0.4);
+            background: linear-gradient(135deg, #e60000, #b30000);
+        }
+
+        .hp-btn-feedback {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: #fff;
+            font-size: 14px;
+            padding: 10px 12px;
+            margin-top: 10px;
+            width: calc(50% - 7px);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+            border: 1px solid #e65100;
+            text-decoration: none;
+        }
+
+        .hp-btn-feedback:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 124, 0, 0.4);
+            background: linear-gradient(135deg, #F57C00, #E65100);
+        }
+
+        .hp-video-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .hp-btn-pdf {
+            background: #607d8b;
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .hp-btn-pdf:hover {
+            background: #455a64;
+        }
+
+        .hp-results {
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hp-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 22px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border-right: 5px solid #1a73e8;
+        }
+
+        .hp-card h3 {
+            margin-top: 0;
+            color: #222;
+            font-size: 24px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .hp-badge {
+            background: #ffeb3b;
+            color: #333;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .hp-badge-lifetime {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .hp-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d32f2f;
+            margin: 15px 0;
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px dashed #ffcdd2;
+        }
+
+        .hp-details,
+        .hp-variant {
+            background: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .hp-variant h4 {
+            margin: 0 0 8px 0;
+            color: #1a73e8;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hp-variant p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .hp-variant .hp-price {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .eng-num {
+            font-family: inherit;
+            font-size: 1.1em;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .hp-error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            border: 1px solid #ffcdd2;
+        }
+
+        .small-tag {
+            font-size: 13px;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Social Media Section */
+        .hp-social-section {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .hp-social-section h3 {
+            margin-top: 0;
+            color: #1565c0;
+            font-size: 18px;
+        }
+
+        .hp-social-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Center the buttons horizontally */
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .hp-btn-facebook {
+            background: #1877F2;
+            color: white;
+            width: 80%;
+            /* Reduce width so it's not full bleed, allowing centering to be visible */
+            max-width: 300px;
+            /* Cap maximum width */
+            margin: 0 auto;
+            /* Force true centering */
+            display: block;
+            font-weight: normal;
+        }
+
+        .hp-btn-facebook:hover {
+            background: #166fe5;
+        }
+
+        .hp-btn-youtube {
+            background: #FF0000;
+            color: white;
+            width: 80%;
+            /* Reduce width */
+            max-width: 300px;
+            /* Cap maximum width */
+            margin: 0 auto;
+            /* Force true centering */
+            display: block;
+            font-weight: normal;
+        }
+
+        .hp-btn-youtube:hover {
+            background: #e60000;
+        }
+
+        .pdf-actions {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+        }
+
+        /* ----- Strict PDF Export Styling ----- */
+        .pdf-export-mode {
+            padding: 10px !important;
+            max-width: 100% !important;
+            box-shadow: none !important;
+            border: none !important;
+            background: #fff !important;
+        }
+
+        /* Force dark text and strong colors */
+        .pdf-export-mode * {
+            color: #000 !important;
+            /* Everything black by default */
+        }
+
+        .pdf-export-mode .hp-title {
+            color: #1a73e8 !important;
+            /* Keep main title blue */
+            font-size: 24px !important;
+            font-weight: 900 !important;
+        }
+
+        .pdf-export-mode .hp-price {
+            color: #d32f2f !important;
+            /* Keep price red */
+            font-weight: 900 !important;
+            background: transparent !important;
+            border-bottom: 2px solid #d32f2f !important;
+            border-radius: 0;
+            padding: 2px 0;
+            display: inline-block;
+        }
+
+        .pdf-export-mode .hp-card,
+        .pdf-export-mode .hp-variant {
+            border: 2px solid #000 !important;
+            background: #fff !important;
+        }
+
+        .pdf-export-mode .hp-card h3 {
+            font-weight: 900 !important;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .pdf-export-mode .hp-badge,
+        .pdf-export-mode .hp-badge-lifetime {
+            border: 2px solid #000 !important;
+            background: transparent !important;
+            font-weight: bold !important;
+        }
+
+        /* Compress spacing to fit exactly one page */
+        .pdf-export-mode .hp-header {
+            margin-bottom: 5px !important;
+            padding-bottom: 5px !important;
+        }
+
+        .pdf-export-mode .hp-desc {
+            font-weight: bold !important;
+            font-size: 14px !important;
+        }
+
+        .pdf-export-mode .hp-card {
+            margin-bottom: 8px !important;
+            padding: 10px !important;
+        }
+
+        .pdf-export-mode .hp-variant {
+            margin-bottom: 5px !important;
+            padding: 5px 8px !important;
+        }
+
+        .pdf-export-mode .hp-card p,
+        .pdf-export-mode .hp-variant p {
+            margin: 3px 0 !important;
+            font-weight: bold !important;
+        }
+
+        .pdf-export-mode .small-tag {
+            font-weight: bold !important;
+        }
+
+        /* Hide buttons that shouldn't be in PDF */
+        .pdf-export-mode .no-print,
+        .pdf-export-mode .hp-input-group,
+        .pdf-export-mode .hp-btn-whatsapp,
+        .pdf-export-mode .hp-btn-video,
+        .pdf-export-mode .pdf-actions {
+            display: none !important;
+        }
+
+        /* Compact social section */
+        .pdf-export-mode .hp-social-section {
+            border: 2px solid #1a73e8 !important;
+            padding: 8px !important;
+            margin-top: 10px !important;
+            margin-bottom: 5px !important;
+            background: #f8f9fa !important;
+        }
+
+        .pdf-export-mode .hp-social-section h3 {
+            font-size: 16px !important;
+            color: #1a73e8 !important;
+        }
+
+        .pdf-export-mode .hp-social-links {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        .pdf-export-mode .hp-social-links a {
+            width: auto;
+            font-size: 12px !important;
+            padding: 4px 8px;
+            border: 1px solid #000 !important;
+            color: #000 !important;
+            background: #fff !important;
+        }
+
+        @media (max-width: 480px) {
+            .hp-estimator-container {
+                padding: 15px;
+            }
+
+            .hp-title {
+                font-size: 22px;
+            }
+
+            .hp-card h3 {
+                font-size: 18px;
+            }
+
+            .hp-badge,
+            .hp-badge-lifetime {
+                display: block;
+                width: fit-content;
+            }
+
+            .hp-video-group {
+                flex-direction: column;
+            }
+
+            .hp-btn-video {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hp-estimator-container" id="printableArea">
+        <div class="hp-header">
+            <h1 class="hp-title ur-font">سمارٹ ہیٹ پروفنگ کیلکولیٹر</h1>
+            <p class="hp-desc">اپنے گھر کو ٹھنڈا رکھیں اور بجلی کے بلوں میں بچت کریں!<br>اپنی چھت کا رقبہ (Sq. Ft) درج
+                کریں اور اپنی ضرورت اور بجٹ کے مطابق بہترین حل کا فوری تخمینہ حاصل کریں۔</p>
+        </div>
+
+        <div class="hp-input-group no-print">
+            <label for="roofArea">کل رقبہ (مربع فٹ / Sq Ft) درج کریں:</label>
+            <input type="number" id="roofArea" placeholder="مثلاً: 1000" min="1">
+            <button id="hpCalculateBtn" class="hp-btn hp-btn-primary">ایسٹیمیٹ لگائیں</button>
+        </div>
+
+        <div id="hpResults" class="hp-results hidden">
+
+            <!-- Product 1: Solar Roof Coating -->
+            <div class="hp-card">
+                <h3>1. آپشن 1: سولر روف کوٹنگ (معیاری تحفظ) <br><span class="hp-badge">لائف: 3 سے 5 سال کی بہترین
+                        لائف</span></h3>
+                <p><strong>"کم خرچ اور فوری اثر کے لیے بہترین انتخاب"</strong></p>
+                <p class="hp-price">متوقع خرچہ: <span id="coatingCost" class="eng-num">0</span> روپے</p>
+                <div class="hp-details">
+                    <p><strong>درکار مقدار:</strong> <span id="coatingBuckets" class="eng-num">0</span> بالٹیاں <span
+                            class="small-tag">(27 کلوگرام فی بالٹی • ڈبل کوٹ)</span></p>
+                    <p><strong>فائدے:</strong></p>
+                    <ul style="padding-right: 20px; margin-top: 5px;">
+                        <li>اے سی کے استعمال میں 50 فیصد تک کمی</li>
+                        <li>سورج کی شعاعوں کو 90% تک واپس منعکس (Reflect) کرتا ہے۔</li>
+                        <li>درجہ حرارت میں 8°C سے 12°C تک نمایاں کمی۔</li>
+                        <li>لگوانے کے بعد آپ تپتی دوپہر میں بھی چھت پر ننگے پاؤں چل سکتے ہیں۔</li>
+                    </ul>
+                </div>
+
+                <div class="hp-video-group no-print">
+                    <a href="https://youtu.be/3g146_LddLo?si=Yp8QUq8paM0ipttl" target="_blank"
+                        class="hp-btn hp-btn-video">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                        </svg>
+                        طریقہ کار دیکھیں
+                    </a>
+                    <a href="https://youtube.com/playlist?list=PLrpsO5O4fToxscszum7wozp-UVZRqUBHn&si=CjgNWqXgtIaKwJ5d"
+                        target="_blank" class="hp-btn hp-btn-feedback">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z" />
+                        </svg>
+                        کسٹمرز کی رائے
+                    </a>
+                </div>
+
+                <button class="hp-btn hp-btn-whatsapp no-print" onclick="sendWhatsApp('coating')">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                    WhatsApp پر معلومات بھیجیں
+                </button>
+            </div>
+
+            <!-- Product 2: Solar Chips -->
+            <div class="hp-card">
+                <h3>2. آپشن 2: سولر چپس (پریمیم تحفظ) <br><span class="hp-badge-lifetime">وارنٹی: لائف ٹائم پائیداری اور
+                        گارنٹی</span></h3>
+                <p><strong>"مضبوطی اور ٹھنڈک کا بہترین امتزاج"</strong></p>
+                <p><strong>فائدے:</strong></p>
+                <ul style="padding-right: 20px; margin-top: 5px;">
+                    <li>100% واٹر پروفنگ اور ہیٹ پروفنگ کا دوہرا تحفظ۔</li>
+                    <li>چھت سے آنے والی تپش کو سو فیصد روکے۔</li>
+                    <li>گھر کی چھتوں کو سیم اور نمی سے ہمیشہ کے لیے محفوظ رکھے۔</li>
+                    <li>بجلی کے بھاری بلوں (AC کے استعمال) میں زبردست کمی۔</li>
+                </ul>
+
+                <div class="hp-variant">
+                    <h4>سپیشل کوالٹی</h4>
+                    <p class="hp-price">متوقع خرچہ: <span id="chipsSpecialCost" class="eng-num">0</span> روپے</p>
+                    <span class="small-tag">درکار بیگز: <span id="chipsSpecialBags" class="eng-num">0</span> (40 کلوگرام
+                        فی بیگ)</span>
+                </div>
+                <div class="hp-variant">
+                    <h4>سپر فیس</h4>
+                    <p class="hp-price">متوقع خرچہ: <span id="chipsSuperCost" class="eng-num">0</span> روپے</p>
+                    <span class="small-tag">درکار بیگز: <span id="chipsSuperBags" class="eng-num">0</span> (40 کلوگرام
+                        فی بیگ)</span>
+                </div>
+                <div class="hp-variant">
+                    <h4>اکانومی کلاس</h4>
+                    <p class="hp-price">متوقع خرچہ: <span id="chipsEconomyCost" class="eng-num">0</span> روپے</p>
+                    <span class="small-tag">درکار بیگز: <span id="chipsEconomyBags" class="eng-num">0</span> (40 کلوگرام
+                        فی بیگ)</span>
+                </div>
+
+                <div class="hp-video-group no-print">
+                    <a href="https://youtu.be/FInGb1ymo4E?si=9hlX9FK3jZxKpInk" target="_blank"
+                        class="hp-btn hp-btn-video">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                        </svg>
+                        طریقہ کار دیکھیں
+                    </a>
+                    <a href="https://youtu.be/dyVnjFvLzVw?si=npyOXQViDHKfZb10" target="_blank"
+                        class="hp-btn hp-btn-feedback">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z" />
+                        </svg>
+                        کسٹمر فیڈ بیک
+                    </a>
+                </div>
+
+                <button class="hp-btn hp-btn-whatsapp no-print" onclick="sendWhatsApp('chips')">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                    WhatsApp پر معلومات بھیجیں
+                </button>
+            </div>
+
+            <!-- Product 3: Solar Tiles -->
+            <div class="hp-card">
+                <h3>3. آپشن 3: سولر ٹائل (لگژری تحفظ) <br><span class="hp-badge-lifetime">وارنٹی: لائف ٹائم گارنٹی
+                        (Premium Quality)</span></h3>
+                <p><strong>"خوبصورتی اور جدید ٹیکنالوجی سے آراستہ"</strong></p>
+                <p><strong>فائدے:</strong></p>
+                <ul style="padding-right: 20px; margin-top: 5px; margin-bottom: 15px;">
+                    <li>ماربل جیسی خوبصورت فنشنگ جو گھر کی ویلیو بڑھائے۔</li>
+                    <li>شدید ترین گرمی میں بھی کمروں کو قدرتی طور پر ٹھنڈا رکھے۔</li>
+                    <li>اے سی کے استعمال میں 50 فیصد تک کمی۔</li>
+                    <li>صاف کرنے میں آسان اور انتہائی پائیدار میٹریل۔</li>
+                </ul>
+
+                <div class="hp-variant">
+                    <h4>منور ائرکنڈیشننگ ٹائل (MAT) <span class="hp-badge"
+                            style="background: #bbdefb; color: #1565c0;">گرمی + سردی</span></h4>
+                    <p class="hp-price">متوقع خرچہ: <span id="tileMatCost" class="eng-num">0</span> روپے</p>
+                </div>
+                <div class="hp-variant">
+                    <h4>سولر ٹائل <span class="hp-badge" style="background: #fff9c4; color: #f57f17;">صرف گرمی
+                            لیے</span></h4>
+                    <p class="hp-price">متوقع خرچہ: <span id="tileSummerCost" class="eng-num">0</span> روپے</p>
+                </div>
+
+                <div class="hp-video-group no-print">
+                    <a href="https://youtu.be/qxibDJzYfCE?si=G4rlKj-qjYQXEdw9" target="_blank"
+                        class="hp-btn hp-btn-video">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                        </svg>
+                        طریقہ کار دیکھیں
+                    </a>
+                    <a href="https://youtu.be/YbE2qZqG6Y8?si=IsZ6LLtuokDNHHBd" target="_blank"
+                        class="hp-btn hp-btn-feedback">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z" />
+                        </svg>
+                        کسٹمر فیڈ بیک
+                    </a>
+                </div>
+
+                <button class="hp-btn hp-btn-whatsapp no-print" onclick="sendWhatsApp('tiles')">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                    WhatsApp پر معلومات بھیجیں
+                </button>
+            </div>
+
+            <!-- Removed social media and PDF buttons as per user request -->
+        </div>
+
+        <div id="hpError" class="hidden hp-error no-print">براہ کرم کوئی درست رقبہ درج کریں۔</div>
+    </div>
+
+    <script>
+        // Keep raw values for WhatsApp messaging
+        let currentEstimates = {
+            area: 0,
+            coating: 0,
+            chipsSpecial: 0,
+            chipsSuper: 0,
+            chipsEconomy: 0,
+            tileMat: 0,
+            tileSummer: 0
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const calculateBtn = document.getElementById('hpCalculateBtn');
+
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function () {
+                    calculateEstimates();
+                });
+            }
+
+            const areaInput = document.getElementById('roofArea');
+            if (areaInput) {
+                areaInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        calculateEstimates();
+                    }
+                });
+            }
+        });
+
+        function calculateEstimates() {
+            const areaInput = document.getElementById('roofArea').value;
+            const errorDiv = document.getElementById('hpError');
+            const resultsDiv = document.getElementById('hpResults');
+
+            if (!areaInput || areaInput <= 0) {
+                errorDiv.classList.remove('hidden');
+                resultsDiv.classList.add('hidden');
+                return;
+            }
+
+            const area = parseFloat(areaInput);
+            currentEstimates.area = area;
+            errorDiv.classList.add('hidden');
+
+            // --- Product 1: Solar Roof Coating ---
+            const coatingBuckets = Math.ceil(area / 400);
+            const coatingCost = coatingBuckets * 7500;
+            currentEstimates.coating = coatingCost;
+
+            document.getElementById('coatingBuckets').innerText = coatingBuckets;
+            document.getElementById('coatingCost').innerText = formatCurrency(coatingCost);
+
+            // --- Product 2: Solar Chips ---
+            const chipsBags = Math.ceil(area / 12);
+
+            const chipsSpecialCost = chipsBags * 2800;
+            const chipsSuperCost = chipsBags * 2300;
+            const chipsEconomyCost = chipsBags * 1800;
+
+            currentEstimates.chipsSpecial = chipsSpecialCost;
+            currentEstimates.chipsSuper = chipsSuperCost;
+            currentEstimates.chipsEconomy = chipsEconomyCost;
+
+            document.getElementById('chipsSpecialBags').innerText = chipsBags;
+            document.getElementById('chipsSpecialCost').innerText = formatCurrency(chipsSpecialCost);
+
+            document.getElementById('chipsSuperBags').innerText = chipsBags;
+            document.getElementById('chipsSuperCost').innerText = formatCurrency(chipsSuperCost);
+
+            document.getElementById('chipsEconomyBags').innerText = chipsBags;
+            document.getElementById('chipsEconomyCost').innerText = formatCurrency(chipsEconomyCost);
+
+            // --- Product 3: Solar Tiles ---
+            const tileMatCost = area * 300;
+            const tileSummerCost = area * 250;
+
+            currentEstimates.tileMat = tileMatCost;
+            currentEstimates.tileSummer = tileSummerCost;
+
+            document.getElementById('tileMatCost').innerText = formatCurrency(tileMatCost);
+            document.getElementById('tileSummerCost').innerText = formatCurrency(tileSummerCost);
+
+            // Show results
+            resultsDiv.classList.remove('hidden');
+
+            setTimeout(() => {
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function formatCurrency(num) {
+            return num.toLocaleString('en-PK');
+        }
+
+        window.sendWhatsApp = function (productType) {
+            if (!currentEstimates.area || currentEstimates.area <= 0) {
+                alert("براہ کرم پہلے رقبہ درج کریں۔");
+                return;
+            }
+
+            let productDetails = "";
+            let productName = "";
+
+            if (productType === 'coating') {
+                productName = "سولر روف کوٹنگ";
+                productDetails = `(متوقع خرچہ: ${formatCurrency(currentEstimates.coating)} روپے)`;
+            } else if (productType === 'chips') {
+                productName = "سولر چپس (ٹھنڈی چپس)";
+                productDetails = `(سپیشل کوالٹی: ${formatCurrency(currentEstimates.chipsSpecial)} روپے، سپر فیس: ${formatCurrency(currentEstimates.chipsSuper)} روپے، اکانومی: ${formatCurrency(currentEstimates.chipsEconomy)} روپے)`;
+            } else if (productType === 'tiles') {
+                productName = "سولر ٹائل";
+                productDetails = `(منور ائرکنڈیشننگ ٹائل: ${formatCurrency(currentEstimates.tileMat)} روپے، صرف گرمی والی ٹائل: ${formatCurrency(currentEstimates.tileSummer)} روپے)`;
+            }
+
+            const msg = `السلام علیکم، میں نے آپ کی ویب سائٹ پر اپنی چھت کا رقبہ (${currentEstimates.area} مربع فٹ) درج کر کے ہیٹ پروفنگ کا تخمینہ لگایا ہے۔\n\nمیں *${productName}* کے حوالے سے آپ کی سروس حاصل کرنے میں دلچسپی رکھتا/رکھتی ہوں۔\nاس ایسٹیمیٹ کے مطابق بل یہ بن رہا ہے: ${productDetails}\n\nبراہ کرم مزید رہنمائی فرمائیں۔`;
+
+            const whatsappNumber = "923006786890";
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+
+            window.open(whatsappUrl, '_blank');
+        };
+
+        // PDF Generation Function
+        function generatePDF() {
+            const element = document.getElementById('printableArea');
+
+            // 1. Inject a ruthless CSS block to force dark colors and bold text
+            // Nastaleeq fonts are thin and can render light/faded in Canvas.
+            const style = document.createElement('style');
+            style.id = 'temp-pdf-style';
+            style.innerHTML = `
+                /* Lock width to a standard size so canvas scaling is consistent */
+                #printableArea { background: #ffffff !important; padding: 15px !important; width: 800px !important; margin: 0 auto !important; box-sizing: border-box; }
+                #printableArea * { 
+                    color: #000000 !important; 
+                    opacity: 1 !important;
+                    font-weight: 900 !important; /* Force bold to prevent fading */
+                    text-shadow: none !important;
+                }
+                #printableArea .hp-title { color: #1a73e8 !important; font-size: 26px !important; }
+                #printableArea .hp-price { color: #d32f2f !important; border-bottom: 2px solid #d32f2f !important; display: inline-block; }
+                #printableArea .hp-card, #printableArea .hp-variant { border: 2px solid #000000 !important; background: #ffffff !important; }
+                #printableArea .hp-badge, #printableArea .hp-badge-lifetime { border: 2px solid #000000 !important; }
+                #printableArea .hp-social-section { border: 2px solid #1a73e8 !important; background: #f8f9fa !important; }
+                #printableArea .hp-social-links a { border: 1px solid #000000 !important; color: #000000 !important; }
+                
+                /* Hide things we don't want */
+                #printableArea .no-print, 
+                #printableArea .hp-input-group, 
+                #printableArea .hp-btn-whatsapp, 
+                #printableArea .hp-btn-video,
+                #printableArea .pdf-actions {
+                    display: none !important;
+                }
+                
+                /* Compress spacing for 1 page */
+                #printableArea .hp-card { margin-bottom: 8px !important; padding: 10px !important; }
+                #printableArea .hp-variant { margin-bottom: 5px !important; padding: 5px !important; }
+                #printableArea .hp-header { margin-bottom: 5px !important; padding-bottom: 5px !important; }
+                #printableArea h3 { padding-bottom: 2px !important; margin-bottom: 2px !important; }
+                #printableArea p { margin: 2px 0 !important; }
+            `;
+            document.head.appendChild(style);
+
+            // 2. Insert static text for Area, hide original input area completely
+            const areaInput = document.getElementById('roofArea');
+            const printText = document.createElement('div');
+            // Removed English 'Sq Ft' to prevent RTL text overlapping
+            printText.innerText = `کل رقبہ: ${areaInput.value} مربع فٹ`;
+            printText.style.fontWeight = "900";
+            printText.style.fontSize = "22px";
+            printText.style.color = "#000000";
+            printText.style.textAlign = "center";
+            printText.style.marginBottom = "10px";
+            printText.style.borderBottom = "2px dashed #000";
+            printText.style.paddingBottom = "5px";
+            printText.dir = "rtl";
+
+            const inputGroup = document.querySelector('.hp-input-group');
+            inputGroup.parentNode.insertBefore(printText, inputGroup);
+
+            // Force a small delay to let browser reflow the injected styles before taking the picture
+            setTimeout(() => {
+                // 3. Take a high-quality picture of the container
+                html2canvas(element, {
+                    scale: 2, // High resolution for sharp text
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff'
+                }).then(canvas => {
+                    // 4. Force fit the picture rigidly into ONE A4 page
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+                    // A4 size dimensions in mm
+                    const pdfWidth = 210;
+                    const pdfHeight = 297;
+
+                    // Calculate how to fit the canvas strictly in this height
+                    const imgRatio = canvas.width / canvas.height;
+                    const pdfRatio = pdfWidth / pdfHeight;
+
+                    // Margins
+                    const margin = 10;
+                    const usableWidth = pdfWidth - (margin * 2);
+                    const usableHeight = pdfHeight - (margin * 2);
+
+                    let finalWidth, finalHeight;
+
+                    // Scale to fit within the page while keeping aspect ratio
+                    if (imgRatio > pdfRatio) {
+                        finalWidth = usableWidth;
+                        finalHeight = usableWidth / imgRatio;
+                    } else {
+                        finalHeight = usableHeight;
+                        finalWidth = usableHeight * imgRatio;
+                    }
+
+                    // Create PDF and place image centered
+                    const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+
+                    // Center the image horizontally
+                    const xPosition = (pdfWidth - finalWidth) / 2;
+
+                    pdf.addImage(imgData, 'JPEG', xPosition, margin, finalWidth, finalHeight);
+                    pdf.save('heatproofing-estimate.pdf');
+
+                    // 5. Cleanup
+                    document.head.removeChild(style);
+                    printText.parentNode.removeChild(printText);
+                }).catch(err => {
+                    console.error("PDF Error: ", err);
+                    // Ensure UI is restored even if an error crashes the promise
+                    if (document.getElementById('temp-pdf-style')) document.head.removeChild(style);
+                    if (printText.parentNode) printText.parentNode.removeChild(printText);
+                });
+            }, 200);
+        }
+    </script>
+
+</body>
+
+</html>
