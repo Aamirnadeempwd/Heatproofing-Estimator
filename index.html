@@ -1070,8 +1070,16 @@
 
     </style>
 </head>
-<body class="hp-dark-theme">
-        <div class="hp-estimator-container hp-dark-theme" id="printableArea" dir="rtl">
+<body class="">
+        <div class="hp-estimator-container" id="printableArea" dir="rtl">
+        <!-- Theme Toggle Button -->
+        <div class="hp-theme-toggle-wrapper no-print" style="text-align: left; margin-bottom: -30px; position: relative; z-index: 10;">
+            <button id="hpThemeToggle" class="hp-btn" style="background: transparent; border: 1px solid #ccc; border-radius: 20px; padding: 5px 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: inherit;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 21.054A9.043 9.043 0 0 1 2.946 12 9.043 9.043 0 0 1 12 2.946v18.108z"/></svg> 
+                <span id="hpThemeToggleText">تھیم تبدیل کریں</span>
+            </button>
+        </div>
+        
         <div class="hp-header">
             <div class="hp-header-left">
                 <a href="https://sober.pk" target="_blank">
@@ -1314,6 +1322,35 @@ let currentEstimates = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Theme Toggle Logic
+    const container = document.getElementById('printableArea');
+    const themeToggleBtn = document.getElementById('hpThemeToggle');
+    const themeToggleText = document.getElementById('hpThemeToggleText');
+
+    // Check localStorage for saved preference, overriding PHP default if exists
+    const savedTheme = localStorage.getItem('hp_theme_mode');
+    if (savedTheme === 'dark') {
+        container.classList.add('hp-dark-theme');
+    } else if (savedTheme === 'light') {
+        container.classList.remove('hp-dark-theme');
+    }
+
+    // Update button text based on current state
+    if (container && themeToggleText) {
+        themeToggleText.innerText = container.classList.contains('hp-dark-theme') ? 'وائٹ تھیم' : 'ڈارک تھیم';
+    }
+
+    if (themeToggleBtn && container) {
+        themeToggleBtn.addEventListener('click', function () {
+            container.classList.toggle('hp-dark-theme');
+            const isDark = container.classList.contains('hp-dark-theme');
+            localStorage.setItem('hp_theme_mode', isDark ? 'dark' : 'light');
+            if (themeToggleText) {
+                themeToggleText.innerText = isDark ? 'وائٹ تھیم' : 'ڈارک تھیم';
+            }
+        });
+    }
+
     const calculateBtn = document.getElementById('hpCalculateBtn');
 
     if (calculateBtn) {
