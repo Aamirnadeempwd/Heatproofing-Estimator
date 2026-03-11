@@ -1,11 +1,19 @@
-﻿<!DOCTYPE html>
-<html lang='ur' dir='rtl'>
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
 <head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>Heatproofing Estimator</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ہیٹ پروفنگ ایسٹیمیٹر | Heatproofing Estimator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+    body, button, input, textarea, select, h1, h2, h3, h4, h5, h6, p, ul, li, a, span, div {
+        font-family: "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", Arial, sans-serif !important;
+    }
+    body { background-color: #f0f2f5; margin: 0; padding: 20px 10px; color: #333; line-height: 1.8; }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
 
 .hp-estimator-container,
 .hp-estimator-container button,
@@ -889,11 +897,181 @@
         margin: 15mm;
     }
 }
-</style>
-</head>
-<body>
 
-    <div class="hp-estimator-container" id="printableArea" dir="rtl">
+/* Custom Admin Dashboard Responsive Styles */
+@media (max-width: 1024px) {
+    .hp-admin-dashboard-wrap {
+        flex-direction: column !important;
+    }
+
+    .hp-admin-sidebar {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .hp-admin-sidebar ul {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hp-admin-sidebar ul li {
+        flex: 1 1 auto;
+    }
+}
+
+/* ========================================================================
+   DARK THEME OVERRIDES
+   ======================================================================== */
+.hp-dark-theme {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-title,
+.hp-dark-theme .hp-brand-text,
+.hp-dark-theme .hp-desc,
+.hp-dark-theme .hp-desc-highlight,
+.hp-dark-theme .hp-desc-subtext {
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-title {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hp-dark-theme .hp-input-group {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.hp-dark-theme .hp-input-group label {
+    color: #ccc;
+}
+
+.hp-dark-theme input[type="number"] {
+    background: #2a2a2a;
+    border: 2px solid #444;
+    color: #fff;
+}
+
+.hp-dark-theme input[type="number"]:focus {
+    border-color: #1a73e8;
+    background: #333;
+}
+
+.hp-dark-theme .hp-card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.hp-dark-theme .hp-card h3 {
+    color: #fff;
+    border-bottom: 2px solid #333;
+}
+
+.hp-dark-theme .hp-product-meta span {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #ddd;
+}
+
+.hp-dark-theme .hp-badge {
+    color: #ffd700;
+}
+
+.hp-dark-theme .hp-badge-lifetime {
+    color: #00ff88;
+}
+
+.hp-dark-theme .hp-estimate-row {
+    background: #252525;
+    border-right: 4px solid #1a73e8;
+}
+
+.hp-dark-theme .hp-estimate-row strong,
+.hp-dark-theme .hp-estimate-row span.eng-num {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-details {
+    background: #252525;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-ben-title {
+    color: #4da8da;
+}
+
+.hp-dark-theme .hp-ben-list li {
+    color: #ccc;
+}
+
+.hp-dark-theme .hp-ben-list li::before {
+    color: #4da8da;
+}
+
+.hp-dark-theme .hp-variant {
+    background: #252525;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-variant h4 {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-btn-whatsapp {
+    background: #075e54;
+}
+
+.hp-dark-theme .hp-btn-whatsapp:hover {
+    background: #128c7e;
+}
+
+.hp-dark-theme .hp-btn-video {
+    background: #b31217;
+}
+
+.hp-dark-theme .hp-btn-video:hover {
+    background: #e52d27;
+}
+
+.hp-dark-theme .hp-btn-feedback {
+    background: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-btn-feedback:hover {
+    background: #4a4a4a;
+    color: #fff;
+}
+
+.hp-dark-theme .hp-social-section {
+    background: #1e1e1e;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-social-section h3 {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-powered-by p {
+    color: #aaa;
+}
+
+.hp-dark-theme .hp-powered-by p strong {
+    color: #ccc;
+}
+
+
+    </style>
+</head>
+<body class="hp-dark-theme">
+        <div class="hp-estimator-container hp-dark-theme" id="printableArea" dir="rtl">
         <div class="hp-header">
             <div class="hp-header-left">
                 <a href="https://sober.pk" target="_blank">
@@ -920,7 +1098,7 @@
             </div>
             <div class="hp-header-right">
                 <!-- User can replace 'header-left.jpg' in assets/img folder with their own image -->
-                <img src="assets/img/header-left.jpg" alt="Left Image" class="hp-header-side-img">
+                <img src="http://localhost/heatproofing/wp-content/plugins/heatproofing-estimator/assets/img/header-left.jpg" alt="Left Image" class="hp-header-side-img">
                 <div class="hp-brand-text">Pro. Munawar Ahmad Malik</div>
             </div>
         </div>
@@ -936,7 +1114,7 @@
             <!-- Product 1: Solar Roof Coating -->
             <div class="hp-card">
                 <h3>1. آپشن 1: سولر روف کوٹنگ (معیاری تحفظ)</h3>
-                <img src="assets/img/solar_coating.png" alt="Solar Roof Coating" class="hp-product-img">
+                <img src="http://localhost/heatproofing/wp-content/plugins/heatproofing-estimator/assets/img/solar_coating.png" alt="Solar Roof Coating" class="hp-product-img">
                 <div class="hp-product-meta">
                     <span class="hp-badge">لائف: 3 سے 5 سال کی بہترین لائف</span>
                     <span class="hp-quote">"کم خرچ اور فوری اثر کے لیے بہترین انتخاب"</span>
@@ -975,7 +1153,7 @@
             <!-- Product 2: Solar Chips -->
             <div class="hp-card">
                 <h3>2. آپشن 2: سولر چپس (پریمیم تحفظ)</h3>
-                <img src="assets/img/solar_chips.png" alt="Solar Chips" class="hp-product-img">
+                <img src="http://localhost/heatproofing/wp-content/plugins/heatproofing-estimator/assets/img/solar_chips.png" alt="Solar Chips" class="hp-product-img">
                 <div class="hp-product-meta">
                     <span class="hp-badge-lifetime">وارنٹی: لائف ٹائم پائیداری اور گارنٹی</span>
                     <span class="hp-quote">"مضبوطی اور ٹھنڈک کا بہترین امتزاج"</span>
@@ -1032,7 +1210,7 @@
             <!-- Product 3: Solar Tiles -->
             <div class="hp-card">
                 <h3>3. آپشن 3: سولر ٹائل (لگژری تحفظ)</h3>
-                <img src="assets/img/solar_tiles.png" alt="Solar Tiles" class="hp-product-img">
+                <img src="http://localhost/heatproofing/wp-content/plugins/heatproofing-estimator/assets/img/solar_tiles.png" alt="Solar Tiles" class="hp-product-img">
                 <div class="hp-product-meta">
                     <span class="hp-badge-lifetime">وارنٹی: لائف ٹائم گارنٹی (Premium Quality)</span>
                     <span class="hp-quote">"خوبصورتی اور جدید ٹیکنالوجی سے آراستہ"</span>
@@ -1122,8 +1300,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
-<script>
-// Keep raw values for WhatsApp messaging
+    <script>
+    var hpSettings = {"coating":"7500","chipsSpecial":"2800","chipsSuper":"2300","chipsEconomy":"1800","tileMat":"300","tileSummer":"250","ajaxUrl":"","whatsappNumber":"923006786890"};
+    // Keep raw values for WhatsApp messaging
 let currentEstimates = {
     area: 0,
     coating: 0,
@@ -1168,9 +1347,19 @@ function calculateEstimates() {
     currentEstimates.area = area;
     errorDiv.classList.add('hidden');
 
+    // Fetch dynamic prices from localized WordPress object or use defaults
+    const prices = typeof hpSettings !== 'undefined' ? hpSettings : {
+        coating: 7500,
+        chipsSpecial: 2800,
+        chipsSuper: 2300,
+        chipsEconomy: 1800,
+        tileMat: 300,
+        tileSummer: 250
+    };
+
     // --- Product 1: Solar Roof Coating ---
     const coatingBuckets = Math.ceil(area / 400);
-    const coatingCost = coatingBuckets * 7500;
+    const coatingCost = coatingBuckets * parseFloat(prices.coating);
     currentEstimates.coating = coatingCost;
 
     document.getElementById('coatingBuckets').innerText = coatingBuckets;
@@ -1179,9 +1368,9 @@ function calculateEstimates() {
     // --- Product 2: Solar Chips ---
     const chipsBags = Math.ceil(area / 12);
 
-    const chipsSpecialCost = chipsBags * 2800;
-    const chipsSuperCost = chipsBags * 2300;
-    const chipsEconomyCost = chipsBags * 1800;
+    const chipsSpecialCost = chipsBags * parseFloat(prices.chipsSpecial);
+    const chipsSuperCost = chipsBags * parseFloat(prices.chipsSuper);
+    const chipsEconomyCost = chipsBags * parseFloat(prices.chipsEconomy);
 
     currentEstimates.chipsSpecial = chipsSpecialCost;
     currentEstimates.chipsSuper = chipsSuperCost;
@@ -1197,8 +1386,8 @@ function calculateEstimates() {
     document.getElementById('chipsEconomyCost').innerText = formatCurrency(chipsEconomyCost);
 
     // --- Product 3: Solar Tiles ---
-    const tileMatCost = area * 300;
-    const tileSummerCost = area * 250;
+    const tileMatCost = area * parseFloat(prices.tileMat);
+    const tileSummerCost = area * parseFloat(prices.tileSummer);
 
     currentEstimates.tileMat = tileMatCost;
     currentEstimates.tileSummer = tileSummerCost;
@@ -1212,6 +1401,20 @@ function calculateEstimates() {
     setTimeout(() => {
         resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
+
+    // Save strictly to the backend database via AJAX silently
+    if (typeof hpSettings !== 'undefined' && typeof jQuery !== 'undefined' && hpSettings.ajaxUrl) {
+        jQuery.post(hpSettings.ajaxUrl, {
+            action: 'hp_save_estimate',
+            area: area,
+            coating_cost: coatingCost,
+            chips_special_cost: chipsSpecialCost,
+            chips_super_cost: chipsSuperCost,
+            chips_economy_cost: chipsEconomyCost,
+            tile_mat_cost: tileMatCost,
+            tile_summer_cost: tileSummerCost
+        });
+    }
 }
 
 function formatCurrency(num) {
@@ -1240,8 +1443,10 @@ window.sendWhatsApp = function (productType) {
 
     const msg = `السلام علیکم، میں نے آپ کی ویب سائٹ پر اپنی چھت کا رقبہ (${currentEstimates.area} مربع فٹ) درج کر کے ہیٹ پروفنگ کا تخمینہ لگایا ہے۔\n\nمیں *${productName}* کے حوالے سے آپ کی سروس حاصل کرنے میں دلچسپی رکھتا/رکھتی ہوں۔\nاس ایسٹیمیٹ کے مطابق بل یہ بن رہا ہے: ${productDetails}\n\nبراہ کرم مزید رہنمائی فرمائیں۔`;
 
-    const whatsappNumber = "923006786890";
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+    const whatsappNumber = (typeof hpSettings !== 'undefined' && hpSettings.whatsappNumber) ? hpSettings.whatsappNumber : "923006786890";
+    // Strip any non-numeric characters for the wa.me link
+    const cleanNumber = whatsappNumber.replace(/\D/g, '');
+    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(msg)}`;
 
     window.open(whatsappUrl, '_blank');
 };
@@ -1421,6 +1626,6 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-</script>
+    </script>
 </body>
 </html>
