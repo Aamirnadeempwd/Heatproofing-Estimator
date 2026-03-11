@@ -1,0 +1,855 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+.hp-estimator-container,
+.hp-estimator-container button,
+.hp-estimator-container input,
+.hp-estimator-container textarea,
+.hp-estimator-container select,
+.hp-estimator-container h1,
+.hp-estimator-container h2,
+.hp-estimator-container h3,
+.hp-estimator-container h4,
+.hp-estimator-container h5,
+.hp-estimator-container h6,
+.hp-estimator-container p,
+.hp-estimator-container ul,
+.hp-estimator-container li,
+.hp-estimator-container a,
+.hp-estimator-container span,
+.hp-estimator-container div {
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif !important;
+}
+
+.hp-estimator-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    direction: rtl;
+    text-align: right;
+    line-height: 2.2;
+    font-size: 20px;
+}
+
+.ur-font {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    font-weight: 700;
+}
+
+.hp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    flex-wrap: wrap;
+    /* Allows stacking on small screens */
+}
+
+.hp-header-left,
+.hp-header-right {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Enforce rigid center alignment inside the flex items */
+}
+
+/* Remove separate start/end overrides to ensure exactly identical distance from edges */
+
+.hp-header-center {
+    flex: 1;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.hp-header-side-img {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid #e0e0e0;
+    margin: 0;
+    transition: transform 0.3s ease;
+}
+
+.hp-header-side-img:hover {
+    transform: scale(1.05);
+}
+
+.hp-logo {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    object-position: center 40%;
+    /* Move the logo graphic just slightly higher inside its circular bounds */
+    /* Keeps logo aspect ratio inside the circle */
+    border-radius: 50%;
+    background-color: #ffffff;
+    /* White bg for transparent logos */
+    margin: 0;
+    padding: 2px;
+    /* Maximized logo size inside the circle without affecting the outer circle size */
+    display: block;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid #e0e0e0;
+}
+
+.hp-logo:hover {
+    transform: scale(1.05);
+}
+
+.hp-brand-text {
+    font-size: 16px;
+    /* Increased from 14px */
+    font-weight: 800;
+    /* Extra bold */
+    color: #1a73e8;
+    /* Match the title's attractive blue color instead of plain dark gray */
+    font-family: 'Arial', sans-serif;
+    margin-top: 5px;
+    width: 170px;
+    /* Slight extra width to allow words to breathe properly without spilling unevenly */
+    text-align: center;
+    line-height: 1.2;
+    direction: ltr;
+    /* Ensure English text renders trailing characters correctly in RTL layout */
+}
+
+.hp-title {
+    color: #1a73e8;
+    margin-bottom: 10px;
+    font-size: 36px;
+    line-height: 1.8;
+}
+
+.hp-title.eng-title {
+    color: #1a73e8;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 38px;
+    /* Increased size */
+    font-family: 'Arial', sans-serif;
+    /* English font */
+    text-align: center;
+}
+
+.hp-desc {
+    color: #666;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 90%;
+    text-align: center;
+}
+
+.hp-desc-highlight {
+    font-weight: 900;
+    display: inline-block;
+    transform: scale(1.15, 1.3);
+    margin-bottom: 5px;
+    /* Adds a bit of padding due to scaling */
+    color: #1a73e8;
+    /* Make it pop out to match the theme */
+    text-shadow: 0 0 1px #1a73e8;
+    /* Extra subtle bolding effect */
+}
+
+.hp-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    background: linear-gradient(145deg, #ffffff, #f0f4f8);
+    /* Professional subtle cool-white to light-blue gradient */
+    padding: 30px 20px;
+    border-radius: 12px;
+    border: 1px solid #dce4ec;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* Gentle depth shadow */
+    align-items: center;
+    /* Center horizontally */
+    text-align: center;
+}
+
+.hp-input-group label {
+    font-weight: 800;
+    /* Extra bold for emphasis */
+    margin-bottom: 15px;
+    /* Slightly more breathing room */
+    color: #1a73e8;
+    /* Use the brand blue color instead of plain dark grey */
+    font-size: 22px;
+    /* Slightly larger for a professional header feel */
+}
+
+.hp-input-group input {
+    padding: 14px;
+    font-size: 22px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    margin: 0 auto 15px auto;
+    direction: ltr;
+    text-align: center;
+    max-width: 400px;
+    /* Constrain width so it looks good when centered */
+    width: 100%;
+    transition: border-color 0.3s;
+}
+
+.hp-input-group input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 10px rgba(26, 115, 232, 0.2);
+    /* Premium glow effect on focus */
+}
+
+.hp-btn {
+    padding: 12px 18px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.1s, background 0.3s;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.hp-btn:active {
+    transform: scale(0.98);
+}
+
+.hp-btn-primary {
+    background: #1a73e8;
+    color: #fff;
+    width: 100%;
+    font-size: 24px;
+    padding: 16px 20px;
+}
+
+.hp-btn-primary:hover {
+    background: #1557b0;
+}
+
+.hp-btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hp-btn-whatsapp:hover {
+    background: #128C7E;
+}
+
+.hp-btn-video {
+    background: linear-gradient(135deg, #FF0000, #cc0000);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    width: calc(50% - 7px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+    border: 1px solid #cc0000;
+}
+
+.hp-btn-video:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.4);
+    background: linear-gradient(135deg, #e60000, #b30000);
+}
+
+.hp-btn-feedback {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    width: calc(50% - 7px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+    border: 1px solid #e65100;
+}
+
+.hp-btn-feedback:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(245, 124, 0, 0.4);
+    background: linear-gradient(135deg, #F57C00, #E65100);
+}
+
+.hp-video-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hp-btn-pdf {
+    background: #607d8b;
+    color: white;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.hp-btn-pdf:hover {
+    background: #455a64;
+}
+
+.hp-results {
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hp-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 22px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-right: 5px solid #1a73e8;
+}
+
+.hp-card h3 {
+    margin-top: 0;
+    color: #222;
+    font-size: 30px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.hp-product-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: linear-gradient(145deg, #fffde7, #fff9c4);
+    padding: 12px 18px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px dashed #fbc02d;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.hp-quote {
+    background: #008744;
+    color: #ffffff;
+    border: 1px solid #005c2e;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0;
+}
+
+.hp-badge {
+    background: #008744;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    border: 1px solid #005c2e;
+}
+
+.hp-badge-lifetime {
+    background: #008744;
+    color: #ffffff;
+    border: 1px solid #005c2e;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.hp-product-img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e0e0e0;
+}
+
+.hp-price {
+    font-size: 26px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin: 15px 0;
+    background: #fff5f5;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px dashed #ffcdd2;
+}
+
+.hp-estimate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff5f5;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 1px dashed #ffcdd2;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.hp-quantity-inline {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.hp-quantity-inline .small-tag {
+    display: inline-block;
+    margin-top: 0;
+    margin-right: 5px;
+}
+
+.hp-price-inline {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin: 0;
+}
+
+.hp-details,
+.hp-variant {
+    background: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.hp-variant h4 {
+    margin: 0 0 8px 0;
+    color: #1a73e8;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hp-variant p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 20px;
+}
+
+.hp-variant .hp-price {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.eng-num {
+    font-family: inherit;
+    font-size: 1.1em;
+    direction: ltr;
+    display: inline-block;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.hp-error {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    border: 1px solid #ffcdd2;
+}
+
+.small-tag {
+    font-size: 16px;
+    color: #666;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Social Media Section */
+.hp-social-section {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.hp-social-section h3 {
+    margin-top: 0;
+    color: #1565c0;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.hp-social-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.hp-social-grid .hp-btn {
+    width: calc(50% - 10px);
+    /* 2 in a row on desktop */
+    margin: 0;
+    padding: 12px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hp-social-grid .hp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.hp-btn-facebook-grid {
+    background: #1877F2;
+    color: white;
+    border: 1px solid #1877F2;
+}
+
+.hp-btn-facebook-grid:hover {
+    background: #166fe5;
+}
+
+.hp-btn-youtube-grid {
+    background: #FF0000;
+    color: white;
+    border: 1px solid #FF0000;
+}
+
+.hp-btn-youtube-grid:hover {
+    background: #e60000;
+}
+
+.hp-btn-whatsapp-grid {
+    background: #25D366;
+    color: white;
+    border: 1px solid #25D366;
+}
+
+.hp-btn-whatsapp-grid:hover {
+    background: #128C7E;
+}
+
+.hp-btn-website-grid {
+    background: #009688;
+    color: white;
+    border: 1px solid #009688;
+}
+
+.hp-btn-website-grid:hover {
+    background: #00796B;
+}
+
+.hp-powered-by {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #bbdefb;
+    color: #455a64;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.hp-powered-by p {
+    margin: 4px 0;
+}
+
+.pdf-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hp-btn-pdf,
+.hp-btn-print {
+    color: white;
+    flex: 1 1 0;
+    /* Grow exactly equally to fill the row */
+    min-width: 0;
+    /* Let flex calculate shrinking equally */
+    max-width: 350px;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hp-btn-pdf,
+.hp-btn-print {
+    background: #00796b;
+}
+
+.hp-btn-pdf:hover,
+.hp-btn-print:hover {
+    background: #004d40;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 121, 107, 0.4);
+}
+
+/* Product Details Formatting */
+.hp-details {
+    background: #fdfdfd;
+    border: 1px solid #e0e6ed;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: right;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.hp-req-text {
+    font-size: 18px;
+    color: #333;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e6ed;
+}
+
+.hp-ben-title {
+    font-size: 18px;
+    color: #1a73e8;
+    margin-bottom: 12px;
+}
+
+.hp-ben-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+/* Tablet and up: 2 columns */
+@media (min-width: 600px) {
+    .hp-ben-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.hp-ben-list li {
+    position: relative;
+    padding-right: 28px;
+    /* Space for the checkmark in RTL */
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.hp-ben-list li::before {
+    content: '✅';
+    position: absolute;
+    right: 0;
+    top: 2px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .hp-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hp-header-left,
+    .hp-header-right {
+        order: 2;
+        flex: 1 1 100%;
+    }
+
+    .hp-header-center {
+        order: 1;
+    }
+
+    .hp-title.eng-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hp-estimator-container {
+        padding: 15px;
+    }
+
+    .hp-title {
+        font-size: 22px;
+    }
+
+    .hp-card h3 {
+        font-size: 18px;
+    }
+
+    .hp-badge,
+    .hp-badge-lifetime {
+        display: block;
+        width: fit-content;
+    }
+
+    .hp-video-group {
+        flex-direction: column;
+    }
+
+    .hp-btn-video {
+        width: 100%;
+    }
+
+    .hp-social-grid .hp-btn,
+    .hp-btn-pdf,
+    .hp-btn-print {
+        width: 100%;
+        /* Stack to 1 column on small phones */
+    }
+}
+
+/* Text Hover Animation Effects */
+.hp-hover-word,
+.hp-brand-text,
+.hp-input-group label,
+.hp-card h3,
+.hp-card p,
+.hp-price,
+.hp-badge,
+.hp-badge-lifetime,
+.hp-quote {
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.hp-hover-word {
+    display: inline-block;
+    margin: 0 4px;
+    /* Space between words so hover scaling doesn't overlap them */
+}
+
+/* Specific styling to ensure the second description line fits on one line */
+.hp-desc-subtext {
+    display: inline-block;
+    white-space: nowrap;
+    /* Prevent line wrapping */
+    font-size: 15px;
+    /* Slightly smaller so it fits */
+}
+
+.hp-desc-subtext .hp-hover-word {
+    margin: 0 1.5px;
+    /* Less margin so words can crowd together without breaking the line */
+}
+
+.hp-brand-text:hover,
+.hp-input-group label:hover,
+.hp-card h3:hover,
+.hp-card p:hover,
+.hp-price:hover,
+.hp-badge:hover,
+.hp-badge-lifetime:hover,
+.hp-quote:hover {
+    transform: scale(1.03);
+    /* 1.03 gives identical visual weight to large blocks of text */
+}
+
+.hp-hover-word:hover {
+    transform: scale(1.15);
+    /* Individual words get a stronger scaling effect to mimic the logo exactly */
+}
+
+/* Print Styles for Ctrl+P or Print Button */
+@media print {
+    body.hp-is-printing>* {
+        display: none !important;
+    }
+
+    body.hp-is-printing>#printableArea {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 auto !important;
+        padding: 0 15px !important;
+        left: unset !important;
+        right: unset !important;
+        top: unset !important;
+    }
+
+    body.hp-is-printing #printableArea * {
+        visibility: visible !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    @page {
+        margin: 15mm;
+    }
+}
