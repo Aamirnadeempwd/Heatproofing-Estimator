@@ -1,574 +1,899 @@
-<!DOCTYPE html>
-<html lang="ur" dir="rtl">
-
+﻿<!DOCTYPE html>
+<html lang='ur' dir='rtl'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ہیٹ پروفنگ ایسٹیمیٹر | Heatproofing Estimator</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- PDF Generation Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <style>
-        body,
-        button,
-        input,
-        textarea,
-        select,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        ul,
-        li,
-        a,
-        span,
-        div {
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif !important;
-        }
-
-        body {
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px 10px;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .ur-font {
-            margin-top: 0;
-        }
-
-        .hp-estimator-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 25px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .hp-header {
-            text-align: center;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        .hp-title {
-            color: #1a73e8;
-            margin-bottom: 5px;
-            font-size: 26px;
-        }
-
-        .hp-desc {
-            color: #666;
-            margin: 0;
-            font-size: 16px;
-            line-height: 2.0;
-        }
-
-        .hp-input-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 25px;
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-        }
-
-        .hp-input-group label {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #444;
-            font-size: 16px;
-        }
-
-        .hp-input-group input {
-            padding: 14px;
-            font-size: 18px;
-            border: 2px solid #ced4da;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            direction: ltr;
-            text-align: left;
-            transition: border-color 0.3s;
-        }
-
-        .hp-input-group input:focus {
-            outline: none;
-            border-color: #1a73e8;
-        }
-
-        .hp-btn {
-            padding: 12px 18px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.1s, background 0.3s;
-            text-align: center;
-            display: inline-block;
-            text-decoration: none;
-        }
-
-        .hp-btn:active {
-            transform: scale(0.98);
-        }
-
-        .hp-btn-primary {
-            background: #1a73e8;
-            color: #fff;
-            width: 100%;
-            font-size: 18px;
-            padding: 14px 20px;
-        }
-
-        .hp-btn-primary:hover {
-            background: #1557b0;
-        }
-
-        .hp-btn-whatsapp {
-            background: #25D366;
-            color: #fff;
-            width: 100%;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .hp-btn-whatsapp:hover {
-            background: #128C7E;
-        }
-
-        .hp-btn-video {
-            background: linear-gradient(135deg, #FF0000, #cc0000);
-            color: #fff;
-            font-size: 14px;
-            padding: 10px 12px;
-            margin-top: 10px;
-            width: calc(50% - 7px);
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            box-sizing: border-box;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
-            border: 1px solid #cc0000;
-        }
-
-        .hp-btn-video:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(229, 9, 20, 0.4);
-            background: linear-gradient(135deg, #e60000, #b30000);
-        }
-
-        .hp-btn-feedback {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
-            color: #fff;
-            font-size: 14px;
-            padding: 10px 12px;
-            margin-top: 10px;
-            width: calc(50% - 7px);
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            box-sizing: border-box;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
-            border: 1px solid #e65100;
-            text-decoration: none;
-        }
-
-        .hp-btn-feedback:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(245, 124, 0, 0.4);
-            background: linear-gradient(135deg, #F57C00, #E65100);
-        }
-
-        .hp-video-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .hp-btn-pdf {
-            background: #607d8b;
-            color: white;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .hp-btn-pdf:hover {
-            background: #455a64;
-        }
-
-        .hp-results {
-            margin-top: 30px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hp-card {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            padding: 22px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            border-right: 5px solid #1a73e8;
-        }
-
-        .hp-card h3 {
-            margin-top: 0;
-            color: #222;
-            font-size: 24px;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .hp-badge {
-            background: #ffeb3b;
-            color: #333;
-            font-size: 14px;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 5px;
-        }
-
-        .hp-badge-lifetime {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #c8e6c9;
-            font-size: 14px;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 5px;
-        }
-
-        .hp-price {
-            font-size: 20px;
-            font-weight: bold;
-            color: #d32f2f;
-            margin: 15px 0;
-            background: #fff5f5;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px dashed #ffcdd2;
-        }
-
-        .hp-details,
-        .hp-variant {
-            background: #f8f9fa;
-            padding: 15px;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .hp-variant h4 {
-            margin: 0 0 8px 0;
-            color: #1a73e8;
-            font-size: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .hp-variant p {
-            margin: 5px 0;
-            color: #555;
-            font-size: 15px;
-        }
-
-        .hp-variant .hp-price {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
-        .eng-num {
-            font-family: inherit;
-            font-size: 1.1em;
-            direction: ltr;
-            display: inline-block;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .hp-error {
-            color: #d32f2f;
-            background: #ffebee;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
-            border: 1px solid #ffcdd2;
-        }
-
-        .small-tag {
-            font-size: 13px;
-            color: #666;
-            display: block;
-            margin-top: 5px;
-        }
-
-        /* Social Media Section */
-        .hp-social-section {
-            background: #e3f2fd;
-            border: 1px solid #bbdefb;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        .hp-social-section h3 {
-            margin-top: 0;
-            color: #1565c0;
-            font-size: 18px;
-        }
-
-        .hp-social-links {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* Center the buttons horizontally */
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .hp-btn-facebook {
-            background: #1877F2;
-            color: white;
-            width: 80%;
-            /* Reduce width so it's not full bleed, allowing centering to be visible */
-            max-width: 300px;
-            /* Cap maximum width */
-            margin: 0 auto;
-            /* Force true centering */
-            display: block;
-            font-weight: normal;
-        }
-
-        .hp-btn-facebook:hover {
-            background: #166fe5;
-        }
-
-        .hp-btn-youtube {
-            background: #FF0000;
-            color: white;
-            width: 80%;
-            /* Reduce width */
-            max-width: 300px;
-            /* Cap maximum width */
-            margin: 0 auto;
-            /* Force true centering */
-            display: block;
-            font-weight: normal;
-        }
-
-        .hp-btn-youtube:hover {
-            background: #e60000;
-        }
-
-        .pdf-actions {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px dashed #ccc;
-        }
-
-        /* ----- Strict PDF Export Styling ----- */
-        .pdf-export-mode {
-            padding: 10px !important;
-            max-width: 100% !important;
-            box-shadow: none !important;
-            border: none !important;
-            background: #fff !important;
-        }
-
-        /* Force dark text and strong colors */
-        .pdf-export-mode * {
-            color: #000 !important;
-            /* Everything black by default */
-        }
-
-        .pdf-export-mode .hp-title {
-            color: #1a73e8 !important;
-            /* Keep main title blue */
-            font-size: 24px !important;
-            font-weight: 900 !important;
-        }
-
-        .pdf-export-mode .hp-price {
-            color: #d32f2f !important;
-            /* Keep price red */
-            font-weight: 900 !important;
-            background: transparent !important;
-            border-bottom: 2px solid #d32f2f !important;
-            border-radius: 0;
-            padding: 2px 0;
-            display: inline-block;
-        }
-
-        .pdf-export-mode .hp-card,
-        .pdf-export-mode .hp-variant {
-            border: 2px solid #000 !important;
-            background: #fff !important;
-        }
-
-        .pdf-export-mode .hp-card h3 {
-            font-weight: 900 !important;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
-
-        .pdf-export-mode .hp-badge,
-        .pdf-export-mode .hp-badge-lifetime {
-            border: 2px solid #000 !important;
-            background: transparent !important;
-            font-weight: bold !important;
-        }
-
-        /* Compress spacing to fit exactly one page */
-        .pdf-export-mode .hp-header {
-            margin-bottom: 5px !important;
-            padding-bottom: 5px !important;
-        }
-
-        .pdf-export-mode .hp-desc {
-            font-weight: bold !important;
-            font-size: 14px !important;
-        }
-
-        .pdf-export-mode .hp-card {
-            margin-bottom: 8px !important;
-            padding: 10px !important;
-        }
-
-        .pdf-export-mode .hp-variant {
-            margin-bottom: 5px !important;
-            padding: 5px 8px !important;
-        }
-
-        .pdf-export-mode .hp-card p,
-        .pdf-export-mode .hp-variant p {
-            margin: 3px 0 !important;
-            font-weight: bold !important;
-        }
-
-        .pdf-export-mode .small-tag {
-            font-weight: bold !important;
-        }
-
-        /* Hide buttons that shouldn't be in PDF */
-        .pdf-export-mode .no-print,
-        .pdf-export-mode .hp-input-group,
-        .pdf-export-mode .hp-btn-whatsapp,
-        .pdf-export-mode .hp-btn-video,
-        .pdf-export-mode .pdf-actions {
-            display: none !important;
-        }
-
-        /* Compact social section */
-        .pdf-export-mode .hp-social-section {
-            border: 2px solid #1a73e8 !important;
-            padding: 8px !important;
-            margin-top: 10px !important;
-            margin-bottom: 5px !important;
-            background: #f8f9fa !important;
-        }
-
-        .pdf-export-mode .hp-social-section h3 {
-            font-size: 16px !important;
-            color: #1a73e8 !important;
-        }
-
-        .pdf-export-mode .hp-social-links {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
-
-        .pdf-export-mode .hp-social-links a {
-            width: auto;
-            font-size: 12px !important;
-            padding: 4px 8px;
-            border: 1px solid #000 !important;
-            color: #000 !important;
-            background: #fff !important;
-        }
-
-        @media (max-width: 480px) {
-            .hp-estimator-container {
-                padding: 15px;
-            }
-
-            .hp-title {
-                font-size: 22px;
-            }
-
-            .hp-card h3 {
-                font-size: 18px;
-            }
-
-            .hp-badge,
-            .hp-badge-lifetime {
-                display: block;
-                width: fit-content;
-            }
-
-            .hp-video-group {
-                flex-direction: column;
-            }
-
-            .hp-btn-video {
-                width: 100%;
-            }
-        }
-    </style>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Heatproofing Estimator</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+.hp-estimator-container,
+.hp-estimator-container button,
+.hp-estimator-container input,
+.hp-estimator-container textarea,
+.hp-estimator-container select,
+.hp-estimator-container h1,
+.hp-estimator-container h2,
+.hp-estimator-container h3,
+.hp-estimator-container h4,
+.hp-estimator-container h5,
+.hp-estimator-container h6,
+.hp-estimator-container p,
+.hp-estimator-container ul,
+.hp-estimator-container li,
+.hp-estimator-container a,
+.hp-estimator-container span,
+.hp-estimator-container div {
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif !important;
+}
+
+.hp-estimator-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    direction: rtl;
+    text-align: right;
+    line-height: 2.2;
+    font-size: 20px;
+}
+
+.ur-font {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    font-weight: 700;
+}
+
+.hp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    flex-wrap: wrap;
+    /* Allows stacking on small screens */
+}
+
+.hp-header-left,
+.hp-header-right {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Enforce rigid center alignment inside the flex items */
+}
+
+/* Remove separate start/end overrides to ensure exactly identical distance from edges */
+
+.hp-header-center {
+    flex: 1;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.hp-header-side-img {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid #e0e0e0;
+    margin: 0;
+    transition: transform 0.3s ease;
+}
+
+.hp-header-side-img:hover {
+    transform: scale(1.05);
+}
+
+.hp-logo {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    object-position: center 40%;
+    /* Move the logo graphic just slightly higher inside its circular bounds */
+    /* Keeps logo aspect ratio inside the circle */
+    border-radius: 50%;
+    background-color: #ffffff;
+    /* White bg for transparent logos */
+    margin: 0;
+    padding: 2px;
+    /* Maximized logo size inside the circle without affecting the outer circle size */
+    display: block;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid #e0e0e0;
+}
+
+.hp-logo:hover {
+    transform: scale(1.05);
+}
+
+.hp-brand-text {
+    font-size: 16px;
+    /* Increased from 14px */
+    font-weight: 800;
+    /* Extra bold */
+    color: #1a73e8;
+    /* Match the title's attractive blue color instead of plain dark gray */
+    font-family: 'Arial', sans-serif;
+    margin-top: 5px;
+    width: 170px;
+    /* Slight extra width to allow words to breathe properly without spilling unevenly */
+    text-align: center;
+    line-height: 1.2;
+    direction: ltr;
+    /* Ensure English text renders trailing characters correctly in RTL layout */
+}
+
+.hp-title {
+    color: #1a73e8;
+    margin-bottom: 10px;
+    font-size: 36px;
+    line-height: 1.8;
+}
+
+.hp-title.eng-title {
+    color: #1a73e8;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 38px;
+    /* Increased size */
+    font-family: 'Arial', sans-serif;
+    /* English font */
+    text-align: center;
+}
+
+.hp-desc {
+    color: #666;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 90%;
+    text-align: center;
+}
+
+.hp-desc-highlight {
+    font-weight: 900;
+    display: inline-block;
+    transform: scale(1.15, 1.3);
+    margin-bottom: 5px;
+    /* Adds a bit of padding due to scaling */
+    color: #1a73e8;
+    /* Make it pop out to match the theme */
+    text-shadow: 0 0 1px #1a73e8;
+    /* Extra subtle bolding effect */
+}
+
+.hp-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    background: linear-gradient(145deg, #ffffff, #f0f4f8);
+    /* Professional subtle cool-white to light-blue gradient */
+    padding: 30px 20px;
+    border-radius: 12px;
+    border: 1px solid #dce4ec;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* Gentle depth shadow */
+    align-items: center;
+    /* Center horizontally */
+    text-align: center;
+}
+
+.hp-input-group label {
+    font-weight: 800;
+    /* Extra bold for emphasis */
+    margin-bottom: 15px;
+    /* Slightly more breathing room */
+    color: #1a73e8;
+    /* Use the brand blue color instead of plain dark grey */
+    font-size: 22px;
+    /* Slightly larger for a professional header feel */
+}
+
+.hp-input-group input {
+    padding: 14px;
+    font-size: 22px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    margin: 0 auto 15px auto;
+    direction: ltr;
+    text-align: center;
+    max-width: 400px;
+    /* Constrain width so it looks good when centered */
+    width: 100%;
+    transition: border-color 0.3s;
+}
+
+.hp-input-group input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 10px rgba(26, 115, 232, 0.2);
+    /* Premium glow effect on focus */
+}
+
+.hp-btn {
+    padding: 12px 18px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.1s, background 0.3s;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.hp-btn:active {
+    transform: scale(0.98);
+}
+
+.hp-btn-primary {
+    background: #1a73e8;
+    color: #fff;
+    width: 100%;
+    font-size: 24px;
+    padding: 16px 20px;
+}
+
+.hp-btn-primary:hover {
+    background: #1557b0;
+}
+
+.hp-btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hp-btn-whatsapp:hover {
+    background: #128C7E;
+}
+
+.hp-btn-video {
+    background: linear-gradient(135deg, #FF0000, #cc0000);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    width: calc(50% - 7px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+    border: 1px solid #cc0000;
+}
+
+.hp-btn-video:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.4);
+    background: linear-gradient(135deg, #e60000, #b30000);
+}
+
+.hp-btn-feedback {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    width: calc(50% - 7px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+    border: 1px solid #e65100;
+}
+
+.hp-btn-feedback:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(245, 124, 0, 0.4);
+    background: linear-gradient(135deg, #F57C00, #E65100);
+}
+
+.hp-video-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hp-btn-pdf {
+    background: #607d8b;
+    color: white;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.hp-btn-pdf:hover {
+    background: #455a64;
+}
+
+.hp-results {
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hp-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 22px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-right: 5px solid #1a73e8;
+}
+
+.hp-card h3 {
+    margin-top: 0;
+    color: #222;
+    font-size: 30px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.hp-product-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: linear-gradient(145deg, #fffde7, #fff9c4);
+    padding: 12px 18px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px dashed #fbc02d;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.hp-quote {
+    background: #008744;
+    color: #ffffff;
+    border: 1px solid #005c2e;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0;
+}
+
+.hp-badge {
+    background: #008744;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    border: 1px solid #005c2e;
+}
+
+.hp-badge-lifetime {
+    background: #008744;
+    color: #ffffff;
+    border: 1px solid #005c2e;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.hp-product-img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e0e0e0;
+}
+
+.hp-price {
+    font-size: 26px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin: 15px 0;
+    background: #fff5f5;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px dashed #ffcdd2;
+}
+
+.hp-estimate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff5f5;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 1px dashed #ffcdd2;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.hp-quantity-inline {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.hp-quantity-inline .small-tag {
+    display: inline-block;
+    margin-top: 0;
+    margin-right: 5px;
+}
+
+.hp-price-inline {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin: 0;
+}
+
+.hp-details,
+.hp-variant {
+    background: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.hp-variant h4 {
+    margin: 0 0 8px 0;
+    color: #1a73e8;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hp-variant p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 20px;
+}
+
+.hp-variant .hp-price {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.eng-num {
+    font-family: inherit;
+    font-size: 1.1em;
+    direction: ltr;
+    display: inline-block;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.hp-error {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    border: 1px solid #ffcdd2;
+}
+
+.small-tag {
+    font-size: 16px;
+    color: #666;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Social Media Section */
+.hp-social-section {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.hp-social-section h3 {
+    margin-top: 0;
+    color: #1565c0;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.hp-social-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.hp-social-grid .hp-btn {
+    width: calc(50% - 10px);
+    /* 2 in a row on desktop */
+    margin: 0;
+    padding: 12px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hp-social-grid .hp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.hp-btn-facebook-grid {
+    background: #1877F2;
+    color: white;
+    border: 1px solid #1877F2;
+}
+
+.hp-btn-facebook-grid:hover {
+    background: #166fe5;
+}
+
+.hp-btn-youtube-grid {
+    background: #FF0000;
+    color: white;
+    border: 1px solid #FF0000;
+}
+
+.hp-btn-youtube-grid:hover {
+    background: #e60000;
+}
+
+.hp-btn-whatsapp-grid {
+    background: #25D366;
+    color: white;
+    border: 1px solid #25D366;
+}
+
+.hp-btn-whatsapp-grid:hover {
+    background: #128C7E;
+}
+
+.hp-btn-website-grid {
+    background: #009688;
+    color: white;
+    border: 1px solid #009688;
+}
+
+.hp-btn-website-grid:hover {
+    background: #00796B;
+}
+
+.hp-powered-by {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #bbdefb;
+    color: #455a64;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.hp-powered-by p {
+    margin: 4px 0;
+}
+
+.pdf-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hp-btn-pdf,
+.hp-btn-print {
+    color: white;
+    flex: 1 1 0;
+    /* Grow exactly equally to fill the row */
+    min-width: 0;
+    /* Let flex calculate shrinking equally */
+    max-width: 350px;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hp-btn-pdf,
+.hp-btn-print {
+    background: #00796b;
+}
+
+.hp-btn-pdf:hover,
+.hp-btn-print:hover {
+    background: #004d40;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 121, 107, 0.4);
+}
+
+/* Product Details Formatting */
+.hp-details {
+    background: #fdfdfd;
+    border: 1px solid #e0e6ed;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: right;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.hp-req-text {
+    font-size: 18px;
+    color: #333;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e6ed;
+}
+
+.hp-ben-title {
+    font-size: 18px;
+    color: #1a73e8;
+    margin-bottom: 12px;
+}
+
+.hp-ben-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+/* Tablet and up: 2 columns */
+@media (min-width: 600px) {
+    .hp-ben-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.hp-ben-list li {
+    position: relative;
+    padding-right: 28px;
+    /* Space for the checkmark in RTL */
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.hp-ben-list li::before {
+    content: '✅';
+    position: absolute;
+    right: 0;
+    top: 2px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .hp-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hp-header-left,
+    .hp-header-right {
+        order: 2;
+        flex: 1 1 100%;
+    }
+
+    .hp-header-center {
+        order: 1;
+    }
+
+    .hp-title.eng-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hp-estimator-container {
+        padding: 15px;
+    }
+
+    .hp-title {
+        font-size: 22px;
+    }
+
+    .hp-card h3 {
+        font-size: 18px;
+    }
+
+    .hp-badge,
+    .hp-badge-lifetime {
+        display: block;
+        width: fit-content;
+    }
+
+    .hp-video-group {
+        flex-direction: column;
+    }
+
+    .hp-btn-video {
+        width: 100%;
+    }
+
+    .hp-social-grid .hp-btn,
+    .hp-btn-pdf,
+    .hp-btn-print {
+        width: 100%;
+        /* Stack to 1 column on small phones */
+    }
+}
+
+/* Text Hover Animation Effects */
+.hp-hover-word,
+.hp-brand-text,
+.hp-input-group label,
+.hp-card h3,
+.hp-card p,
+.hp-price,
+.hp-badge,
+.hp-badge-lifetime,
+.hp-quote {
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.hp-hover-word {
+    display: inline-block;
+    margin: 0 4px;
+    /* Space between words so hover scaling doesn't overlap them */
+}
+
+/* Specific styling to ensure the second description line fits on one line */
+.hp-desc-subtext {
+    display: inline-block;
+    white-space: nowrap;
+    /* Prevent line wrapping */
+    font-size: 15px;
+    /* Slightly smaller so it fits */
+}
+
+.hp-desc-subtext .hp-hover-word {
+    margin: 0 1.5px;
+    /* Less margin so words can crowd together without breaking the line */
+}
+
+.hp-brand-text:hover,
+.hp-input-group label:hover,
+.hp-card h3:hover,
+.hp-card p:hover,
+.hp-price:hover,
+.hp-badge:hover,
+.hp-badge-lifetime:hover,
+.hp-quote:hover {
+    transform: scale(1.03);
+    /* 1.03 gives identical visual weight to large blocks of text */
+}
+
+.hp-hover-word:hover {
+    transform: scale(1.15);
+    /* Individual words get a stronger scaling effect to mimic the logo exactly */
+}
+
+/* Print Styles for Ctrl+P or Print Button */
+@media print {
+    body.hp-is-printing>* {
+        display: none !important;
+    }
+
+    body.hp-is-printing>#printableArea {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 auto !important;
+        padding: 0 15px !important;
+        left: unset !important;
+        right: unset !important;
+        top: unset !important;
+    }
+
+    body.hp-is-printing #printableArea * {
+        visibility: visible !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    @page {
+        margin: 15mm;
+    }
+}
+</style>
 </head>
-
 <body>
 
-    <div class="hp-estimator-container" id="printableArea">
+    <div class="hp-estimator-container" id="printableArea" dir="rtl">
         <div class="hp-header">
-            <h1 class="hp-title ur-font">سمارٹ ہیٹ پروفنگ کیلکولیٹر</h1>
-            <p class="hp-desc">اپنے گھر کو ٹھنڈا رکھیں اور بجلی کے بلوں میں بچت کریں!<br>اپنی چھت کا رقبہ (Sq. Ft) درج
-                کریں اور اپنی ضرورت اور بجٹ کے مطابق بہترین حل کا فوری تخمینہ حاصل کریں۔</p>
+            <div class="hp-header-left">
+                <a href="https://sober.pk" target="_blank">
+                    <img src="https://sober.pk/wp-content/uploads/2023/05/sober-web-logo.png" alt="Sober Logo" class="hp-logo">
+                </a>
+                <div class="hp-brand-text">SOBER Technologies intl.</div>
+            </div>
+            <div class="hp-header-center">
+                <h1 class="hp-title eng-title" dir="ltr">
+                    <span class="hp-hover-word">SOBER</span> <span class="hp-hover-word">Heatproofing</span><br>
+                    <span class="hp-hover-word">Estimator</span>
+                </h1>
+                <p class="hp-desc">
+                    <strong class="hp-desc-highlight">
+                        <span class="hp-hover-word">گھر</span> <span class="hp-hover-word">ٹھنڈا،</span> <span class="hp-hover-word">بجلی</span> <span class="hp-hover-word">کا</span> <span class="hp-hover-word">بل</span> <span class="hp-hover-word">کم!</span>
+                    </strong>
+                    <br>
+                    <span class="hp-desc-subtext">
+                        <strong>
+                            <span class="hp-hover-word">چھت</span> <span class="hp-hover-word">کا</span> <span class="hp-hover-word">رقبہ</span> <span class="hp-hover-word">درج</span> <span class="hp-hover-word">کریں</span> <span class="hp-hover-word">اور</span> <span class="hp-hover-word">اپنے</span> <span class="hp-hover-word">بجٹ</span> <span class="hp-hover-word">کے</span> <span class="hp-hover-word">مطابق</span> <span class="hp-hover-word">فوری</span> <span class="hp-hover-word">کوٹیشن</span> <span class="hp-hover-word">حاصل</span> <span class="hp-hover-word">کریں</span>
+                        </strong>
+                    </span>
+                </p>
+            </div>
+            <div class="hp-header-right">
+                <!-- User can replace 'header-left.jpg' in assets/img folder with their own image -->
+                <img src="assets/img/header-left.jpg" alt="Left Image" class="hp-header-side-img">
+                <div class="hp-brand-text">Pro. Munawar Ahmad Malik</div>
+            </div>
         </div>
 
         <div class="hp-input-group no-print">
@@ -581,15 +906,19 @@
 
             <!-- Product 1: Solar Roof Coating -->
             <div class="hp-card">
-                <h3>1. آپشن 1: سولر روف کوٹنگ (معیاری تحفظ) <br><span class="hp-badge">لائف: 3 سے 5 سال کی بہترین
-                        لائف</span></h3>
-                <p><strong>"کم خرچ اور فوری اثر کے لیے بہترین انتخاب"</strong></p>
-                <p class="hp-price">متوقع خرچہ: <span id="coatingCost" class="eng-num">0</span> روپے</p>
+                <h3>1. آپشن 1: سولر روف کوٹنگ (معیاری تحفظ)</h3>
+                <img src="assets/img/solar_coating.png" alt="Solar Roof Coating" class="hp-product-img">
+                <div class="hp-product-meta">
+                    <span class="hp-badge">لائف: 3 سے 5 سال کی بہترین لائف</span>
+                    <span class="hp-quote">"کم خرچ اور فوری اثر کے لیے بہترین انتخاب"</span>
+                </div>
+                <div class="hp-estimate-row">
+                    <p class="hp-quantity-inline"><strong>درکار مقدار:</strong> <span id="coatingBuckets" class="eng-num">0</span> بالٹیاں <span class="small-tag">(27 کلوگرام فی بالٹی • ڈبل کوٹ)</span></p>
+                    <p class="hp-price-inline">قیمت: <span id="coatingCost" class="eng-num">0</span> روپے</p>
+                </div>
                 <div class="hp-details">
-                    <p><strong>درکار مقدار:</strong> <span id="coatingBuckets" class="eng-num">0</span> بالٹیاں <span
-                            class="small-tag">(27 کلوگرام فی بالٹی • ڈبل کوٹ)</span></p>
-                    <p><strong>فائدے:</strong></p>
-                    <ul style="padding-right: 20px; margin-top: 5px;">
+                    <p class="hp-ben-title"><strong>فائدے:</strong></p>
+                    <ul class="hp-ben-list">
                         <li>اے سی کے استعمال میں 50 فیصد تک کمی</li>
                         <li>سورج کی شعاعوں کو 90% تک واپس منعکس (Reflect) کرتا ہے۔</li>
                         <li>درجہ حرارت میں 8°C سے 12°C تک نمایاں کمی۔</li>
@@ -598,392 +927,472 @@
                 </div>
 
                 <div class="hp-video-group no-print">
-                    <a href="https://youtu.be/3g146_LddLo?si=Yp8QUq8paM0ipttl" target="_blank"
-                        class="hp-btn hp-btn-video">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path
-                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                        </svg>
+                    <a href="https://youtu.be/3g146_LddLo?si=Yp8QUq8paM0ipttl" target="_blank" class="hp-btn hp-btn-video">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         طریقہ کار دیکھیں
                     </a>
-                    <a href="https://youtube.com/playlist?list=PLrpsO5O4fToxscszum7wozp-UVZRqUBHn&si=CjgNWqXgtIaKwJ5d"
-                        target="_blank" class="hp-btn hp-btn-feedback">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path
-                                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z" />
-                        </svg>
+                    <a href="https://youtube.com/playlist?list=PLrpsO5O4fToxscszum7wozp-UVZRqUBHn&si=CjgNWqXgtIaKwJ5d" target="_blank" class="hp-btn hp-btn-feedback">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z"/></svg>
                         کسٹمرز کی رائے
                     </a>
                 </div>
 
                 <button class="hp-btn hp-btn-whatsapp no-print" onclick="sendWhatsApp('coating')">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path
-                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                    </svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
                     WhatsApp پر معلومات بھیجیں
                 </button>
             </div>
 
             <!-- Product 2: Solar Chips -->
             <div class="hp-card">
-                <h3>2. آپشن 2: سولر چپس (پریمیم تحفظ) <br><span class="hp-badge-lifetime">وارنٹی: لائف ٹائم پائیداری اور
-                        گارنٹی</span></h3>
-                <p><strong>"مضبوطی اور ٹھنڈک کا بہترین امتزاج"</strong></p>
-                <p><strong>فائدے:</strong></p>
-                <ul style="padding-right: 20px; margin-top: 5px;">
-                    <li>100% واٹر پروفنگ اور ہیٹ پروفنگ کا دوہرا تحفظ۔</li>
-                    <li>چھت سے آنے والی تپش کو سو فیصد روکے۔</li>
-                    <li>گھر کی چھتوں کو سیم اور نمی سے ہمیشہ کے لیے محفوظ رکھے۔</li>
-                    <li>بجلی کے بھاری بلوں (AC کے استعمال) میں زبردست کمی۔</li>
-                </ul>
+                <h3>2. آپشن 2: سولر چپس (پریمیم تحفظ)</h3>
+                <img src="assets/img/solar_chips.png" alt="Solar Chips" class="hp-product-img">
+                <div class="hp-product-meta">
+                    <span class="hp-badge-lifetime">وارنٹی: لائف ٹائم پائیداری اور گارنٹی</span>
+                    <span class="hp-quote">"مضبوطی اور ٹھنڈک کا بہترین امتزاج"</span>
+                </div>
+                <div class="hp-details">
+                    <p class="hp-ben-title"><strong>فائدے:</strong></p>
+                    <ul class="hp-ben-list">
+                        <li>100% واٹر پروفنگ اور ہیٹ پروفنگ کا دوہرا تحفظ۔</li>
+                        <li>چھت سے آنے والی تپش کو سو فیصد روکے۔</li>
+                        <li>گھر کی چھتوں کو سیم اور نمی سے ہمیشہ کے لیے محفوظ رکھے۔</li>
+                        <li>بجلی کے بھاری بلوں (AC کے استعمال) میں زبردست کمی۔</li>
+                    </ul>
+                </div>
 
                 <div class="hp-variant">
                     <h4>سپیشل کوالٹی</h4>
-                    <p class="hp-price">متوقع خرچہ: <span id="chipsSpecialCost" class="eng-num">0</span> روپے</p>
-                    <span class="small-tag">درکار بیگز: <span id="chipsSpecialBags" class="eng-num">0</span> (40 کلوگرام
-                        فی بیگ)</span>
+                    <div class="hp-estimate-row">
+                        <p class="hp-quantity-inline"><strong>درکار مقدار:</strong> <span id="chipsSpecialBags" class="eng-num">0</span> بیگز <span class="small-tag">(40 کلوگرام فی بیگ)</span></p>
+                        <p class="hp-price-inline">قیمت: <span id="chipsSpecialCost" class="eng-num">0</span> روپے</p>
+                    </div>
                 </div>
                 <div class="hp-variant">
                     <h4>سپر فیس</h4>
-                    <p class="hp-price">متوقع خرچہ: <span id="chipsSuperCost" class="eng-num">0</span> روپے</p>
-                    <span class="small-tag">درکار بیگز: <span id="chipsSuperBags" class="eng-num">0</span> (40 کلوگرام
-                        فی بیگ)</span>
+                    <div class="hp-estimate-row">
+                        <p class="hp-quantity-inline"><strong>درکار مقدار:</strong> <span id="chipsSuperBags" class="eng-num">0</span> بیگز <span class="small-tag">(40 کلوگرام فی بیگ)</span></p>
+                        <p class="hp-price-inline">قیمت: <span id="chipsSuperCost" class="eng-num">0</span> روپے</p>
+                    </div>
                 </div>
                 <div class="hp-variant">
                     <h4>اکانومی کلاس</h4>
-                    <p class="hp-price">متوقع خرچہ: <span id="chipsEconomyCost" class="eng-num">0</span> روپے</p>
-                    <span class="small-tag">درکار بیگز: <span id="chipsEconomyBags" class="eng-num">0</span> (40 کلوگرام
-                        فی بیگ)</span>
+                    <div class="hp-estimate-row">
+                        <p class="hp-quantity-inline"><strong>درکار مقدار:</strong> <span id="chipsEconomyBags" class="eng-num">0</span> بیگز <span class="small-tag">(40 کلوگرام فی بیگ)</span></p>
+                        <p class="hp-price-inline">قیمت: <span id="chipsEconomyCost" class="eng-num">0</span> روپے</p>
+                    </div>
                 </div>
 
                 <div class="hp-video-group no-print">
-                    <a href="https://youtu.be/FInGb1ymo4E?si=9hlX9FK3jZxKpInk" target="_blank"
-                        class="hp-btn hp-btn-video">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path
-                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                        </svg>
+                    <a href="https://youtu.be/FInGb1ymo4E?si=9hlX9FK3jZxKpInk" target="_blank" class="hp-btn hp-btn-video">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         طریقہ کار دیکھیں
                     </a>
-                    <a href="https://youtu.be/dyVnjFvLzVw?si=npyOXQViDHKfZb10" target="_blank"
-                        class="hp-btn hp-btn-feedback">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path
-                                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z" />
-                        </svg>
+                    <a href="https://youtu.be/dyVnjFvLzVw?si=npyOXQViDHKfZb10" target="_blank" class="hp-btn hp-btn-feedback">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z"/></svg>
                         کسٹمر فیڈ بیک
                     </a>
                 </div>
 
                 <button class="hp-btn hp-btn-whatsapp no-print" onclick="sendWhatsApp('chips')">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path
-                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                    </svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
                     WhatsApp پر معلومات بھیجیں
                 </button>
             </div>
 
             <!-- Product 3: Solar Tiles -->
             <div class="hp-card">
-                <h3>3. آپشن 3: سولر ٹائل (لگژری تحفظ) <br><span class="hp-badge-lifetime">وارنٹی: لائف ٹائم گارنٹی
-                        (Premium Quality)</span></h3>
-                <p><strong>"خوبصورتی اور جدید ٹیکنالوجی سے آراستہ"</strong></p>
-                <p><strong>فائدے:</strong></p>
-                <ul style="padding-right: 20px; margin-top: 5px; margin-bottom: 15px;">
-                    <li>ماربل جیسی خوبصورت فنشنگ جو گھر کی ویلیو بڑھائے۔</li>
-                    <li>شدید ترین گرمی میں بھی کمروں کو قدرتی طور پر ٹھنڈا رکھے۔</li>
-                    <li>اے سی کے استعمال میں 50 فیصد تک کمی۔</li>
-                    <li>صاف کرنے میں آسان اور انتہائی پائیدار میٹریل۔</li>
-                </ul>
+                <h3>3. آپشن 3: سولر ٹائل (لگژری تحفظ)</h3>
+                <img src="assets/img/solar_tiles.png" alt="Solar Tiles" class="hp-product-img">
+                <div class="hp-product-meta">
+                    <span class="hp-badge-lifetime">وارنٹی: لائف ٹائم گارنٹی (Premium Quality)</span>
+                    <span class="hp-quote">"خوبصورتی اور جدید ٹیکنالوجی سے آراستہ"</span>
+                </div>
+                <div class="hp-details">
+                    <p class="hp-ben-title"><strong>فائدے:</strong></p>
+                    <ul class="hp-ben-list">
+                        <li>ماربل جیسی خوبصورت فنشنگ جو گھر کی ویلیو بڑھائے۔</li>
+                        <li>شدید ترین گرمی میں بھی کمروں کو قدرتی طور پر ٹھنڈا رکھے۔</li>
+                        <li>اے سی کے استعمال میں 50 فیصد تک کمی۔</li>
+                        <li>صاف کرنے میں آسان اور انتہائی پائیدار میٹریل۔</li>
+                    </ul>
+                </div>
 
                 <div class="hp-variant">
-                    <h4>منور ائرکنڈیشننگ ٹائل (MAT) <span class="hp-badge"
-                            style="background: #bbdefb; color: #1565c0;">گرمی + سردی</span></h4>
-                    <p class="hp-price">متوقع خرچہ: <span id="tileMatCost" class="eng-num">0</span> روپے</p>
+                    <h4>منور ائرکنڈیشننگ ٹائل (MAT) <span class="hp-badge" style="background: #bbdefb; color: #1565c0;">گرمی + سردی</span></h4>
+                    <p class="hp-price">قیمت: <span id="tileMatCost" class="eng-num">0</span> روپے</p>
                 </div>
                 <div class="hp-variant">
-                    <h4>سولر ٹائل <span class="hp-badge" style="background: #fff9c4; color: #f57f17;">صرف گرمی
-                            لیے</span></h4>
-                    <p class="hp-price">متوقع خرچہ: <span id="tileSummerCost" class="eng-num">0</span> روپے</p>
+                    <h4>سولر ٹائل <span class="hp-badge" style="background: #fff9c4; color: #f57f17;">صرف گرمی لیے</span></h4>
+                    <p class="hp-price">قیمت: <span id="tileSummerCost" class="eng-num">0</span> روپے</p>
                 </div>
 
                 <div class="hp-video-group no-print">
-                    <a href="https://youtu.be/qxibDJzYfCE?si=G4rlKj-qjYQXEdw9" target="_blank"
-                        class="hp-btn hp-btn-video">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path
-                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                        </svg>
+                    <a href="https://youtu.be/qxibDJzYfCE?si=G4rlKj-qjYQXEdw9" target="_blank" class="hp-btn hp-btn-video">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         طریقہ کار دیکھیں
                     </a>
-                    <a href="https://youtu.be/YbE2qZqG6Y8?si=IsZ6LLtuokDNHHBd" target="_blank"
-                        class="hp-btn hp-btn-feedback">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path
-                                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z" />
-                        </svg>
+                    <a href="https://youtu.be/YbE2qZqG6Y8?si=IsZ6LLtuokDNHHBd" target="_blank" class="hp-btn hp-btn-feedback">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168-5.934-5.787 8.2-1.192z"/></svg>
                         کسٹمر فیڈ بیک
                     </a>
                 </div>
 
                 <button class="hp-btn hp-btn-whatsapp no-print" onclick="sendWhatsApp('tiles')">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path
-                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                    </svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
                     WhatsApp پر معلومات بھیجیں
                 </button>
             </div>
 
-            <!-- Removed social media and PDF buttons as per user request -->
+            <div class="pdf-actions no-print">
+                <button class="hp-btn hp-btn-print" onclick="printEstimate()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-left: 8px;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                    ایسٹیمیٹ پرنٹ کریں
+                </button>
+                <button class="hp-btn hp-btn-pdf" onclick="generatePDF()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-left: 8px;"><path d="M12 16L7 11l1.4-1.4 2.6 2.6V4h2v8.2l2.6-2.6L17 11l-5 5zm-8 4v-2h16v2H4z"/></svg>
+                    پی ڈی ایف ڈاؤنلوڈ کریں
+                </button>
+            </div>
+
+            <div class="hp-social-section">
+                <h3>ہیٹ پروفنگ کے بہترین حل اور اپڈیٹس کے لئے ہم سے جڑے رہیں</h3>
+                <div class="hp-social-grid">
+                    <!-- Row 1: WhatsApp and YouTube -->
+                    <a href="https://wa.me/923006786890" target="_blank" class="hp-btn hp-btn-whatsapp-grid">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-left: 8px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
+                        WhatsApp
+                    </a>
+                    <a href="https://youtube.com/@coolyourhome7682?si=hq0Qlom74QKE7RwW" target="_blank" class="hp-btn hp-btn-youtube-grid">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-left: 8px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        YouTube
+                    </a>
+                    <!-- Row 2: Facebook and Website -->
+                    <a href="https://www.facebook.com/share/183cz1o861/" target="_blank" class="hp-btn hp-btn-facebook-grid">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-left: 8px;"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        Facebook
+                    </a>
+                    <a href="https://sober.pk" target="_blank" class="hp-btn hp-btn-website-grid">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-left: 8px;"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-15h2v6h-2V7zm0 8h2v2h-2v-2z"/></svg>
+                        Website
+                    </a>
+                </div>
+                
+                <div class="hp-powered-by">
+                    <p><strong>powered by :</strong> SOBER Technologies intl</p>
+                    <p dir="ltr">0515421151 - 03006786890</p>
+                    <p>islamabad</p>
+                </div>
+            </div>
         </div>
-
-        <div id="hpError" class="hidden hp-error no-print">براہ کرم کوئی درست رقبہ درج کریں۔</div>
+        
+        <div id="hpError" class="hidden error-text hp-error no-print">براہ کرم کوئی درست رقبہ درج کریں۔</div>
     </div>
+    
+    <!-- Load PDF Generation scripts directly in output for safety -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+<script>
+// Keep raw values for WhatsApp messaging
+let currentEstimates = {
+    area: 0,
+    coating: 0,
+    chipsSpecial: 0,
+    chipsSuper: 0,
+    chipsEconomy: 0,
+    tileMat: 0,
+    tileSummer: 0
+};
 
-    <script>
-        // Keep raw values for WhatsApp messaging
-        let currentEstimates = {
-            area: 0,
-            coating: 0,
-            chipsSpecial: 0,
-            chipsSuper: 0,
-            chipsEconomy: 0,
-            tileMat: 0,
-            tileSummer: 0
-        };
+document.addEventListener('DOMContentLoaded', function () {
+    const calculateBtn = document.getElementById('hpCalculateBtn');
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const calculateBtn = document.getElementById('hpCalculateBtn');
+    if (calculateBtn) {
+        calculateBtn.addEventListener('click', function () {
+            calculateEstimates();
+        });
+    }
 
-            if (calculateBtn) {
-                calculateBtn.addEventListener('click', function () {
-                    calculateEstimates();
-                });
-            }
-
-            const areaInput = document.getElementById('roofArea');
-            if (areaInput) {
-                areaInput.addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') {
-                        calculateEstimates();
-                    }
-                });
+    const areaInput = document.getElementById('roofArea');
+    if (areaInput) {
+        areaInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                calculateEstimates();
             }
         });
+    }
+});
 
-        function calculateEstimates() {
-            const areaInput = document.getElementById('roofArea').value;
-            const errorDiv = document.getElementById('hpError');
-            const resultsDiv = document.getElementById('hpResults');
+function calculateEstimates() {
+    const areaInput = document.getElementById('roofArea').value;
+    const errorDiv = document.getElementById('hpError');
+    const resultsDiv = document.getElementById('hpResults');
 
-            if (!areaInput || areaInput <= 0) {
-                errorDiv.classList.remove('hidden');
-                resultsDiv.classList.add('hidden');
-                return;
+    if (!areaInput || areaInput <= 0) {
+        errorDiv.classList.remove('hidden');
+        resultsDiv.classList.add('hidden');
+        return;
+    }
+
+    const area = parseFloat(areaInput);
+    currentEstimates.area = area;
+    errorDiv.classList.add('hidden');
+
+    // --- Product 1: Solar Roof Coating ---
+    const coatingBuckets = Math.ceil(area / 400);
+    const coatingCost = coatingBuckets * 7500;
+    currentEstimates.coating = coatingCost;
+
+    document.getElementById('coatingBuckets').innerText = coatingBuckets;
+    document.getElementById('coatingCost').innerText = formatCurrency(coatingCost);
+
+    // --- Product 2: Solar Chips ---
+    const chipsBags = Math.ceil(area / 12);
+
+    const chipsSpecialCost = chipsBags * 2800;
+    const chipsSuperCost = chipsBags * 2300;
+    const chipsEconomyCost = chipsBags * 1800;
+
+    currentEstimates.chipsSpecial = chipsSpecialCost;
+    currentEstimates.chipsSuper = chipsSuperCost;
+    currentEstimates.chipsEconomy = chipsEconomyCost;
+
+    document.getElementById('chipsSpecialBags').innerText = chipsBags;
+    document.getElementById('chipsSpecialCost').innerText = formatCurrency(chipsSpecialCost);
+
+    document.getElementById('chipsSuperBags').innerText = chipsBags;
+    document.getElementById('chipsSuperCost').innerText = formatCurrency(chipsSuperCost);
+
+    document.getElementById('chipsEconomyBags').innerText = chipsBags;
+    document.getElementById('chipsEconomyCost').innerText = formatCurrency(chipsEconomyCost);
+
+    // --- Product 3: Solar Tiles ---
+    const tileMatCost = area * 300;
+    const tileSummerCost = area * 250;
+
+    currentEstimates.tileMat = tileMatCost;
+    currentEstimates.tileSummer = tileSummerCost;
+
+    document.getElementById('tileMatCost').innerText = formatCurrency(tileMatCost);
+    document.getElementById('tileSummerCost').innerText = formatCurrency(tileSummerCost);
+
+    // Show results
+    resultsDiv.classList.remove('hidden');
+
+    setTimeout(() => {
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+}
+
+function formatCurrency(num) {
+    return num.toLocaleString('en-PK');
+}
+
+window.sendWhatsApp = function (productType) {
+    if (!currentEstimates.area || currentEstimates.area <= 0) {
+        alert("براہ کرم پہلے رقبہ درج کریں۔");
+        return;
+    }
+
+    let productDetails = "";
+    let productName = "";
+
+    if (productType === 'coating') {
+        productName = "سولر روف کوٹنگ";
+        productDetails = `(قیمت: ${formatCurrency(currentEstimates.coating)} روپے)`;
+    } else if (productType === 'chips') {
+        productName = "سولر چپس (ٹھنڈی چپس)";
+        productDetails = `(سپیشل کوالٹی: ${formatCurrency(currentEstimates.chipsSpecial)} روپے، سپر فیس: ${formatCurrency(currentEstimates.chipsSuper)} روپے، اکانومی: ${formatCurrency(currentEstimates.chipsEconomy)} روپے)`;
+    } else if (productType === 'tiles') {
+        productName = "سولر ٹائل";
+        productDetails = `(منور ائرکنڈیشننگ ٹائل: ${formatCurrency(currentEstimates.tileMat)} روپے، صرف گرمی والی ٹائل: ${formatCurrency(currentEstimates.tileSummer)} روپے)`;
+    }
+
+    const msg = `السلام علیکم، میں نے آپ کی ویب سائٹ پر اپنی چھت کا رقبہ (${currentEstimates.area} مربع فٹ) درج کر کے ہیٹ پروفنگ کا تخمینہ لگایا ہے۔\n\nمیں *${productName}* کے حوالے سے آپ کی سروس حاصل کرنے میں دلچسپی رکھتا/رکھتی ہوں۔\nاس ایسٹیمیٹ کے مطابق بل یہ بن رہا ہے: ${productDetails}\n\nبراہ کرم مزید رہنمائی فرمائیں۔`;
+
+    const whatsappNumber = "923006786890";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+
+    window.open(whatsappUrl, '_blank');
+};
+
+// Print Function (Reliable Centering)
+window.printEstimate = function () {
+    const printArea = document.getElementById('printableArea');
+    const originalParent = printArea.parentNode;
+    const originalNextSibling = printArea.nextSibling;
+
+    // Move printable area directly to body to escape WordPress theme relative constraints
+    document.body.appendChild(printArea);
+
+    // Add a printing class to body to activate our specific CSS rules
+    document.body.classList.add('hp-is-printing');
+
+    // Add static area text for print
+    const areaInput = document.getElementById('roofArea');
+    const printText = document.createElement('div');
+    printText.id = 'temp-print-text';
+    printText.innerText = `کل رقبہ: ${areaInput.value} مربع فٹ`;
+    printText.style.fontWeight = "900";
+    printText.style.fontSize = "22px";
+    printText.style.color = "#000000";
+    printText.style.textAlign = "center";
+    printText.style.marginBottom = "10px";
+    printText.style.borderBottom = "2px dashed #000";
+    printText.style.paddingBottom = "5px";
+    printText.dir = "rtl";
+
+    const inputGroup = document.querySelector('#printableArea .hp-input-group');
+    if (inputGroup) {
+        inputGroup.parentNode.insertBefore(printText, inputGroup);
+    }
+
+    // Give browser a split second to render the DOM change before freezing for print dialog
+    // Modern browsers allow synchronous print if initiated by user click, 
+    // but sometimes need a tick to repaint the newly appended DOM.
+    setTimeout(() => {
+        window.print();
+
+        // Restore everything immediately after the print dialog closes
+        if (printText.parentNode) {
+            printText.parentNode.removeChild(printText);
+        }
+        document.body.classList.remove('hp-is-printing');
+        if (originalNextSibling) {
+            originalParent.insertBefore(printArea, originalNextSibling);
+        } else {
+            originalParent.appendChild(printArea);
+        }
+    }, 50);
+};
+
+// PDF Generation Function
+window.generatePDF = function () {
+    const element = document.getElementById('printableArea');
+
+    // 1. Inject a ruthless CSS block to force dark colors and bold text
+    // Nastaleeq fonts are thin and can render light/faded in Canvas.
+    const style = document.createElement('style');
+    style.id = 'temp-pdf-style';
+    style.innerHTML = `
+        /* Lock width to a standard size so canvas scaling is consistent */
+        #printableArea { background: #ffffff !important; padding: 15px !important; width: 800px !important; margin: 0 auto !important; box-sizing: border-box; }
+        #printableArea * { 
+            color: #000000 !important; 
+            opacity: 1 !important;
+            font-weight: 900 !important; /* Force bold to prevent fading */
+            text-shadow: none !important;
+        }
+        #printableArea .hp-title { color: #1a73e8 !important; font-size: 26px !important; }
+        #printableArea .hp-price { color: #d32f2f !important; border-bottom: 2px solid #d32f2f !important; display: inline-block; }
+        #printableArea .hp-card, #printableArea .hp-variant { border: 2px solid #000000 !important; background: #ffffff !important; }
+        #printableArea .hp-badge, #printableArea .hp-badge-lifetime { border: 2px solid #000000 !important; }
+        #printableArea .hp-social-section { border: 2px solid #1a73e8 !important; background: #f8f9fa !important; }
+        #printableArea .hp-social-grid a { border: 1px solid #000000 !important; color: #000000 !important; }
+        #printableArea .hp-powered-by { color: #000000 !important; border-top: 1px solid #000000 !important; }
+        
+        /* Hide things we don't want */
+        #printableArea .no-print, 
+        #printableArea .hp-input-group, 
+        #printableArea .hp-btn-whatsapp, 
+        #printableArea .hp-btn-video,
+        #printableArea .pdf-actions {
+            display: none !important;
+        }
+        
+        /* Compress spacing for 1 page */
+        #printableArea .hp-card { margin-bottom: 8px !important; padding: 10px !important; }
+        #printableArea .hp-variant { margin-bottom: 5px !important; padding: 5px !important; }
+        #printableArea .hp-header { margin-bottom: 5px !important; padding-bottom: 5px !important; }
+        #printableArea h3 { padding-bottom: 2px !important; margin-bottom: 2px !important; }
+        #printableArea p { margin: 2px 0 !important; }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Insert static text for Area, hide original input area completely
+    const areaInput = document.getElementById('roofArea');
+    const printText = document.createElement('div');
+    // Removed English 'Sq Ft' to prevent RTL text overlapping
+    printText.innerText = `کل رقبہ: ${areaInput.value} مربع فٹ`;
+    printText.style.fontWeight = "900";
+    printText.style.fontSize = "22px";
+    printText.style.color = "#000000";
+    printText.style.textAlign = "center";
+    printText.style.marginBottom = "10px";
+    printText.style.borderBottom = "2px dashed #000";
+    printText.style.paddingBottom = "5px";
+    printText.dir = "rtl";
+
+    const inputGroup = document.querySelector('.hp-input-group');
+    inputGroup.parentNode.insertBefore(printText, inputGroup);
+
+    // Force a small delay to let browser reflow the injected styles before taking the picture
+    setTimeout(() => {
+        // 3. Take a high-quality picture of the container
+        window.html2canvas(element, {
+            scale: 2, // High resolution for sharp text
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
+        }).then(canvas => {
+            // 4. Force fit the picture rigidly to A4 width, allowing multiple pages for height
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+            // A4 size dimensions in mm
+            const pdfWidth = 210;
+            const pdfHeight = 297;
+
+            // Margins
+            const margin = 10;
+            const usableWidth = pdfWidth - (margin * 2);
+            const usableHeight = pdfHeight - (margin * 2);
+
+            // Maintain aspect ratio to find the height needed
+            const imgRatio = canvas.width / canvas.height;
+            const finalWidth = usableWidth;
+            const finalHeight = finalWidth / imgRatio;
+
+            // Create PDF
+            const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+
+            // Draw the image, paginating it if it exceeds one page height
+            let heightLeft = finalHeight;
+            let position = margin;
+
+            // First page
+            pdf.addImage(imgData, 'JPEG', margin, position, finalWidth, finalHeight);
+            heightLeft -= usableHeight;
+
+            // Remaining pages
+            while (heightLeft > 0) {
+                position = position - usableHeight - margin; // Shift image UP by a full page
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', margin, position, finalWidth, finalHeight);
+                heightLeft -= usableHeight;
             }
 
-            const area = parseFloat(areaInput);
-            currentEstimates.area = area;
-            errorDiv.classList.add('hidden');
+            pdf.save('heatproofing-estimate.pdf');
 
-            // --- Product 1: Solar Roof Coating ---
-            const coatingBuckets = Math.ceil(area / 400);
-            const coatingCost = coatingBuckets * 7500;
-            currentEstimates.coating = coatingCost;
+            // 5. Cleanup
+            document.head.removeChild(style);
+            printText.parentNode.removeChild(printText);
+        });
+    }, 200);
+}
 
-            document.getElementById('coatingBuckets').innerText = coatingBuckets;
-            document.getElementById('coatingCost').innerText = formatCurrency(coatingCost);
-
-            // --- Product 2: Solar Chips ---
-            const chipsBags = Math.ceil(area / 12);
-
-            const chipsSpecialCost = chipsBags * 2800;
-            const chipsSuperCost = chipsBags * 2300;
-            const chipsEconomyCost = chipsBags * 1800;
-
-            currentEstimates.chipsSpecial = chipsSpecialCost;
-            currentEstimates.chipsSuper = chipsSuperCost;
-            currentEstimates.chipsEconomy = chipsEconomyCost;
-
-            document.getElementById('chipsSpecialBags').innerText = chipsBags;
-            document.getElementById('chipsSpecialCost').innerText = formatCurrency(chipsSpecialCost);
-
-            document.getElementById('chipsSuperBags').innerText = chipsBags;
-            document.getElementById('chipsSuperCost').innerText = formatCurrency(chipsSuperCost);
-
-            document.getElementById('chipsEconomyBags').innerText = chipsBags;
-            document.getElementById('chipsEconomyCost').innerText = formatCurrency(chipsEconomyCost);
-
-            // --- Product 3: Solar Tiles ---
-            const tileMatCost = area * 300;
-            const tileSummerCost = area * 250;
-
-            currentEstimates.tileMat = tileMatCost;
-            currentEstimates.tileSummer = tileSummerCost;
-
-            document.getElementById('tileMatCost').innerText = formatCurrency(tileMatCost);
-            document.getElementById('tileSummerCost').innerText = formatCurrency(tileSummerCost);
-
-            // Show results
-            resultsDiv.classList.remove('hidden');
-
-            setTimeout(() => {
-                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
+// Intercept Ctrl+P to optionally trigger PDF download or print this section directly
+document.addEventListener('keydown', function (event) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'p') {
+        const resultsDiv = document.getElementById('hpResults');
+        if (resultsDiv && !resultsDiv.classList.contains('hidden')) {
+            event.preventDefault();
+            window.printEstimate();
         }
+    }
+});
 
-        function formatCurrency(num) {
-            return num.toLocaleString('en-PK');
-        }
-
-        window.sendWhatsApp = function (productType) {
-            if (!currentEstimates.area || currentEstimates.area <= 0) {
-                alert("براہ کرم پہلے رقبہ درج کریں۔");
-                return;
-            }
-
-            let productDetails = "";
-            let productName = "";
-
-            if (productType === 'coating') {
-                productName = "سولر روف کوٹنگ";
-                productDetails = `(متوقع خرچہ: ${formatCurrency(currentEstimates.coating)} روپے)`;
-            } else if (productType === 'chips') {
-                productName = "سولر چپس (ٹھنڈی چپس)";
-                productDetails = `(سپیشل کوالٹی: ${formatCurrency(currentEstimates.chipsSpecial)} روپے، سپر فیس: ${formatCurrency(currentEstimates.chipsSuper)} روپے، اکانومی: ${formatCurrency(currentEstimates.chipsEconomy)} روپے)`;
-            } else if (productType === 'tiles') {
-                productName = "سولر ٹائل";
-                productDetails = `(منور ائرکنڈیشننگ ٹائل: ${formatCurrency(currentEstimates.tileMat)} روپے، صرف گرمی والی ٹائل: ${formatCurrency(currentEstimates.tileSummer)} روپے)`;
-            }
-
-            const msg = `السلام علیکم، میں نے آپ کی ویب سائٹ پر اپنی چھت کا رقبہ (${currentEstimates.area} مربع فٹ) درج کر کے ہیٹ پروفنگ کا تخمینہ لگایا ہے۔\n\nمیں *${productName}* کے حوالے سے آپ کی سروس حاصل کرنے میں دلچسپی رکھتا/رکھتی ہوں۔\nاس ایسٹیمیٹ کے مطابق بل یہ بن رہا ہے: ${productDetails}\n\nبراہ کرم مزید رہنمائی فرمائیں۔`;
-
-            const whatsappNumber = "923006786890";
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
-
-            window.open(whatsappUrl, '_blank');
-        };
-
-        // PDF Generation Function
-        function generatePDF() {
-            const element = document.getElementById('printableArea');
-
-            // 1. Inject a ruthless CSS block to force dark colors and bold text
-            // Nastaleeq fonts are thin and can render light/faded in Canvas.
-            const style = document.createElement('style');
-            style.id = 'temp-pdf-style';
-            style.innerHTML = `
-                /* Lock width to a standard size so canvas scaling is consistent */
-                #printableArea { background: #ffffff !important; padding: 15px !important; width: 800px !important; margin: 0 auto !important; box-sizing: border-box; }
-                #printableArea * { 
-                    color: #000000 !important; 
-                    opacity: 1 !important;
-                    font-weight: 900 !important; /* Force bold to prevent fading */
-                    text-shadow: none !important;
-                }
-                #printableArea .hp-title { color: #1a73e8 !important; font-size: 26px !important; }
-                #printableArea .hp-price { color: #d32f2f !important; border-bottom: 2px solid #d32f2f !important; display: inline-block; }
-                #printableArea .hp-card, #printableArea .hp-variant { border: 2px solid #000000 !important; background: #ffffff !important; }
-                #printableArea .hp-badge, #printableArea .hp-badge-lifetime { border: 2px solid #000000 !important; }
-                #printableArea .hp-social-section { border: 2px solid #1a73e8 !important; background: #f8f9fa !important; }
-                #printableArea .hp-social-links a { border: 1px solid #000000 !important; color: #000000 !important; }
-                
-                /* Hide things we don't want */
-                #printableArea .no-print, 
-                #printableArea .hp-input-group, 
-                #printableArea .hp-btn-whatsapp, 
-                #printableArea .hp-btn-video,
-                #printableArea .pdf-actions {
-                    display: none !important;
-                }
-                
-                /* Compress spacing for 1 page */
-                #printableArea .hp-card { margin-bottom: 8px !important; padding: 10px !important; }
-                #printableArea .hp-variant { margin-bottom: 5px !important; padding: 5px !important; }
-                #printableArea .hp-header { margin-bottom: 5px !important; padding-bottom: 5px !important; }
-                #printableArea h3 { padding-bottom: 2px !important; margin-bottom: 2px !important; }
-                #printableArea p { margin: 2px 0 !important; }
-            `;
-            document.head.appendChild(style);
-
-            // 2. Insert static text for Area, hide original input area completely
-            const areaInput = document.getElementById('roofArea');
-            const printText = document.createElement('div');
-            // Removed English 'Sq Ft' to prevent RTL text overlapping
-            printText.innerText = `کل رقبہ: ${areaInput.value} مربع فٹ`;
-            printText.style.fontWeight = "900";
-            printText.style.fontSize = "22px";
-            printText.style.color = "#000000";
-            printText.style.textAlign = "center";
-            printText.style.marginBottom = "10px";
-            printText.style.borderBottom = "2px dashed #000";
-            printText.style.paddingBottom = "5px";
-            printText.dir = "rtl";
-
-            const inputGroup = document.querySelector('.hp-input-group');
-            inputGroup.parentNode.insertBefore(printText, inputGroup);
-
-            // Force a small delay to let browser reflow the injected styles before taking the picture
-            setTimeout(() => {
-                // 3. Take a high-quality picture of the container
-                html2canvas(element, {
-                    scale: 2, // High resolution for sharp text
-                    useCORS: true,
-                    logging: false,
-                    backgroundColor: '#ffffff'
-                }).then(canvas => {
-                    // 4. Force fit the picture rigidly into ONE A4 page
-                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
-
-                    // A4 size dimensions in mm
-                    const pdfWidth = 210;
-                    const pdfHeight = 297;
-
-                    // Calculate how to fit the canvas strictly in this height
-                    const imgRatio = canvas.width / canvas.height;
-                    const pdfRatio = pdfWidth / pdfHeight;
-
-                    // Margins
-                    const margin = 10;
-                    const usableWidth = pdfWidth - (margin * 2);
-                    const usableHeight = pdfHeight - (margin * 2);
-
-                    let finalWidth, finalHeight;
-
-                    // Scale to fit within the page while keeping aspect ratio
-                    if (imgRatio > pdfRatio) {
-                        finalWidth = usableWidth;
-                        finalHeight = usableWidth / imgRatio;
-                    } else {
-                        finalHeight = usableHeight;
-                        finalWidth = usableHeight * imgRatio;
-                    }
-
-                    // Create PDF and place image centered
-                    const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-
-                    // Center the image horizontally
-                    const xPosition = (pdfWidth - finalWidth) / 2;
-
-                    pdf.addImage(imgData, 'JPEG', xPosition, margin, finalWidth, finalHeight);
-                    pdf.save('heatproofing-estimate.pdf');
-
-                    // 5. Cleanup
-                    document.head.removeChild(style);
-                    printText.parentNode.removeChild(printText);
-                }).catch(err => {
-                    console.error("PDF Error: ", err);
-                    // Ensure UI is restored even if an error crashes the promise
-                    if (document.getElementById('temp-pdf-style')) document.head.removeChild(style);
-                    if (printText.parentNode) printText.parentNode.removeChild(printText);
-                });
-            }, 200);
-        }
-    </script>
-
+</script>
 </body>
-
 </html>
+
