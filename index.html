@@ -758,10 +758,32 @@
         font-size: 18px;
     }
 
+    .hp-product-meta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
     .hp-badge,
-    .hp-badge-lifetime {
+    .hp-badge-lifetime,
+    .hp-quote {
         display: block;
-        width: fit-content;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+    }
+
+    .hp-estimate-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .hp-price-inline {
+        width: 100%;
+        text-align: right;
+        padding-top: 5px;
+        border-top: 1px dashed #ddd;
     }
 
     .hp-video-group {
@@ -772,11 +794,18 @@
         width: 100%;
     }
 
+    .hp-social-grid {
+        grid-template-columns: 1fr;
+        /* Switch to 1 column */
+    }
+
     .hp-social-grid .hp-btn,
     .hp-btn-pdf,
     .hp-btn-print {
+        flex: 0 0 100%;
+        /* Force 100% width on flex children */
+        max-width: 100%;
         width: 100%;
-        /* Stack to 1 column on small phones */
     }
 }
 
@@ -1395,4 +1424,3 @@ document.addEventListener('keydown', function (event) {
 </script>
 </body>
 </html>
-
