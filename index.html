@@ -1084,6 +1084,28 @@
 }
 
 
+
+/* ========================================================================
+   STANDALONE MOBILE OVERFLOW FIX
+   ======================================================================== */
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .hp-estimator-container {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        margin: 10px auto !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+}
+
+
     </style>
 </head>
 <body class="">
