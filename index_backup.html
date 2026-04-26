@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ہیٹ پروفنگ ایسٹیمیٹر | Heatproofing Estimator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+    body, button, input, textarea, select, h1, h2, h3, h4, h5, h6, p, ul, li, a, span, div {
+        font-family: "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", Arial, sans-serif !important;
+    }
+    body { background-color: #f0f2f5; margin: 0; padding: 20px 10px; color: #333; line-height: 1.8; }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+.hp-estimator-container,
+.hp-estimator-container button,
+.hp-estimator-container input,
+.hp-estimator-container textarea,
+.hp-estimator-container select,
+.hp-estimator-container h1,
+.hp-estimator-container h2,
+.hp-estimator-container h3,
+.hp-estimator-container h4,
+.hp-estimator-container h5,
+.hp-estimator-container h6,
+.hp-estimator-container p,
+.hp-estimator-container ul,
+.hp-estimator-container li,
+.hp-estimator-container a,
+.hp-estimator-container span,
+.hp-estimator-container div {
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif !important;
+}
+
+.hp-estimator-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    direction: rtl;
+    text-align: right;
+    line-height: 2.2;
+    font-size: 20px;
+}
+
+.ur-font {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    font-weight: 700;
+}
+
+.hp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    flex-wrap: wrap;
+    /* Allows stacking on small screens */
+}
+
+.hp-header-left,
+.hp-header-right {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Enforce rigid center alignment inside the flex items */
+}
+
+/* Remove separate start/end overrides to ensure exactly identical distance from edges */
+
+.hp-header-center {
+    flex: 1;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.hp-header-side-img {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid #e0e0e0;
+    margin: 0;
+    transition: transform 0.3s ease;
+}
+
+.hp-header-side-img:hover {
+    transform: scale(1.05);
+}
+
+.hp-logo {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    object-position: center 40%;
+    /* Move the logo graphic just slightly higher inside its circular bounds */
+    /* Keeps logo aspect ratio inside the circle */
+    border-radius: 50%;
+    background-color: #ffffff;
+    /* White bg for transparent logos */
+    margin: 0;
+    padding: 2px;
+    /* Maximized logo size inside the circle without affecting the outer circle size */
+    display: block;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid #e0e0e0;
+}
+
+.hp-logo:hover {
+    transform: scale(1.05);
+}
+
+.hp-brand-text {
+    font-size: 16px;
+    /* Increased from 14px */
+    font-weight: 800;
+    /* Extra bold */
+    color: #1a73e8;
+    /* Match the title's attractive blue color instead of plain dark gray */
+    font-family: 'Arial', sans-serif;
+    margin-top: 5px;
+    width: 170px;
+    /* Slight extra width to allow words to breathe properly without spilling unevenly */
+    text-align: center;
+    line-height: 1.2;
+    direction: ltr;
+    /* Ensure English text renders trailing characters correctly in RTL layout */
+}
+
+.hp-title {
+    color: #1a73e8;
+    margin-bottom: 10px;
+    font-size: 36px;
+    line-height: 1.8;
+}
+
+.hp-title.eng-title {
+    color: #1a73e8;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 38px;
+    /* Increased size */
+    font-family: 'Arial', sans-serif;
+    /* English font */
+    text-align: center;
+}
+
+.hp-desc {
+    color: #666;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 90%;
+    text-align: center;
+}
+
+.hp-desc-highlight {
+    font-weight: 900;
+    display: inline-block;
+    transform: scale(1.15, 1.3);
+    margin-bottom: 5px;
+    /* Adds a bit of padding due to scaling */
+    color: #1a73e8;
+    /* Make it pop out to match the theme */
+    text-shadow: 0 0 1px #1a73e8;
+    /* Extra subtle bolding effect */
+}
+
+.hp-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    background: linear-gradient(145deg, #ffffff, #f0f4f8);
+    /* Professional subtle cool-white to light-blue gradient */
+    padding: 30px 20px;
+    border-radius: 12px;
+    border: 1px solid #dce4ec;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* Gentle depth shadow */
+    align-items: center;
+    /* Center horizontally */
+    text-align: center;
+}
+
+.hp-input-group label {
+    font-weight: 800;
+    /* Extra bold for emphasis */
+    margin-bottom: 15px;
+    /* Slightly more breathing room */
+    color: #1a73e8;
+    /* Use the brand blue color instead of plain dark grey */
+    font-size: 22px;
+    /* Slightly larger for a professional header feel */
+}
+
+.hp-input-group input {
+    padding: 14px;
+    font-size: 22px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    margin: 0 auto 15px auto;
+    direction: ltr;
+    text-align: center;
+    max-width: 400px;
+    /* Constrain width so it looks good when centered */
+    width: 100%;
+    transition: border-color 0.3s;
+}
+
+.hp-input-group input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 10px rgba(26, 115, 232, 0.2);
+    /* Premium glow effect on focus */
+}
+
+.hp-btn {
+    padding: 12px 18px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.1s, background 0.3s;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.hp-btn:active {
+    transform: scale(0.98);
+}
+
+.hp-btn-primary {
+    background: #1a73e8;
+    color: #fff;
+    width: 100%;
+    font-size: 24px;
+    padding: 16px 20px;
+}
+
+.hp-btn-primary:hover {
+    background: #1557b0;
+}
+
+.hp-btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hp-btn-whatsapp:hover {
+    background: #128C7E;
+}
+
+.hp-btn-video {
+    background: linear-gradient(135deg, #FF0000, #cc0000);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    width: calc(50% - 7px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+    border: 1px solid #cc0000;
+}
+
+.hp-btn-video:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.4);
+    background: linear-gradient(135deg, #e60000, #b30000);
+}
+
+.hp-btn-feedback {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    width: calc(50% - 7px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+    border: 1px solid #e65100;
+}
+
+.hp-btn-feedback:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(245, 124, 0, 0.4);
+    background: linear-gradient(135deg, #F57C00, #E65100);
+}
+
+.hp-video-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hp-btn-pdf {
+    background: #607d8b;
+    color: white;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.hp-btn-pdf:hover {
+    background: #455a64;
+}
+
+.hp-results {
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hp-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 22px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-right: 5px solid #1a73e8;
+}
+
+.hp-card h3 {
+    margin-top: 0;
+    color: #222;
+    font-size: 30px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.hp-product-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: linear-gradient(145deg, #fffde7, #fff9c4);
+    padding: 12px 18px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px dashed #fbc02d;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.hp-quote {
+    background: #008744;
+    color: #ffffff;
+    border: 1px solid #005c2e;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0;
+}
+
+.hp-badge {
+    background: #008744;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    border: 1px solid #005c2e;
+}
+
+.hp-badge-lifetime {
+    background: #008744;
+    color: #ffffff;
+    border: 1px solid #005c2e;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.hp-product-img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e0e0e0;
+}
+
+.hp-price {
+    font-size: 26px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin: 15px 0;
+    background: #fff5f5;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px dashed #ffcdd2;
+}
+
+.hp-estimate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff5f5;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 1px dashed #ffcdd2;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.hp-quantity-inline {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.hp-quantity-inline .small-tag {
+    display: inline-block;
+    margin-top: 0;
+    margin-right: 5px;
+}
+
+.hp-price-inline {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin: 0;
+}
+
+.hp-details,
+.hp-variant {
+    background: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.hp-variant h4 {
+    margin: 0 0 8px 0;
+    color: #1a73e8;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hp-variant p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 20px;
+}
+
+.hp-variant .hp-price {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.eng-num {
+    font-family: inherit;
+    font-size: 1.1em;
+    direction: ltr;
+    display: inline-block;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.hp-error {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    border: 1px solid #ffcdd2;
+}
+
+.small-tag {
+    font-size: 16px;
+    color: #666;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Social Media Section */
+.hp-social-section {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.hp-social-section h3 {
+    margin-top: 0;
+    color: #1565c0;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.hp-social-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.hp-social-grid .hp-btn {
+    width: calc(50% - 10px);
+    /* 2 in a row on desktop */
+    margin: 0;
+    padding: 12px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hp-social-grid .hp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.hp-btn-facebook-grid {
+    background: #1877F2;
+    color: white;
+    border: 1px solid #1877F2;
+}
+
+.hp-btn-facebook-grid:hover {
+    background: #166fe5;
+}
+
+.hp-btn-youtube-grid {
+    background: #FF0000;
+    color: white;
+    border: 1px solid #FF0000;
+}
+
+.hp-btn-youtube-grid:hover {
+    background: #e60000;
+}
+
+.hp-btn-whatsapp-grid {
+    background: #25D366;
+    color: white;
+    border: 1px solid #25D366;
+}
+
+.hp-btn-whatsapp-grid:hover {
+    background: #128C7E;
+}
+
+.hp-btn-website-grid {
+    background: #009688;
+    color: white;
+    border: 1px solid #009688;
+}
+
+.hp-btn-website-grid:hover {
+    background: #00796B;
+}
+
+.hp-powered-by {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #bbdefb;
+    color: #455a64;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.hp-powered-by p {
+    margin: 4px 0;
+}
+
+.pdf-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hp-btn-pdf,
+.hp-btn-print {
+    color: white;
+    flex: 1 1 0;
+    /* Grow exactly equally to fill the row */
+    min-width: 0;
+    /* Let flex calculate shrinking equally */
+    max-width: 350px;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hp-btn-pdf,
+.hp-btn-print {
+    background: #00796b;
+}
+
+.hp-btn-pdf:hover,
+.hp-btn-print:hover {
+    background: #004d40;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 121, 107, 0.4);
+}
+
+/* Product Details Formatting */
+.hp-details {
+    background: #fdfdfd;
+    border: 1px solid #e0e6ed;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: right;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.hp-req-text {
+    font-size: 18px;
+    color: #333;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e6ed;
+}
+
+.hp-ben-title {
+    font-size: 18px;
+    color: #1a73e8;
+    margin-bottom: 12px;
+}
+
+.hp-ben-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+/* Tablet and up: 2 columns */
+@media (min-width: 600px) {
+    .hp-ben-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.hp-ben-list li {
+    position: relative;
+    padding-right: 28px;
+    /* Space for the checkmark in RTL */
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.hp-ben-list li::before {
+    content: '✅';
+    position: absolute;
+    right: 0;
+    top: 2px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .hp-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hp-header-left,
+    .hp-header-right {
+        order: 2;
+        flex: 1 1 100%;
+    }
+
+    .hp-header-center {
+        order: 1;
+    }
+
+    .hp-title.eng-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hp-estimator-container {
+        padding: 15px;
+    }
+
+    .hp-title {
+        font-size: 22px;
+    }
+
+    .hp-card h3 {
+        font-size: 18px;
+    }
+
+    .hp-product-meta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hp-badge,
+    .hp-badge-lifetime,
+    .hp-quote {
+        display: block;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+    }
+
+    .hp-estimate-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .hp-price-inline {
+        width: 100%;
+        text-align: right;
+        padding-top: 5px;
+        border-top: 1px dashed #ddd;
+    }
+
+    .hp-video-group {
+        flex-direction: column;
+    }
+
+    .hp-btn-video {
+        width: 100%;
+    }
+
+    .hp-social-grid {
+        grid-template-columns: 1fr;
+        /* Switch to 1 column */
+    }
+
+    .hp-social-grid .hp-btn,
+    .hp-btn-pdf,
+    .hp-btn-print {
+        flex: 0 0 100%;
+        /* Force 100% width on flex children */
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+/* Text Hover Animation Effects */
+.hp-hover-word,
+.hp-brand-text,
+.hp-input-group label,
+.hp-card h3,
+.hp-card p,
+.hp-price,
+.hp-badge,
+.hp-badge-lifetime,
+.hp-quote {
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.hp-hover-word {
+    display: inline-block;
+    margin: 0 4px;
+    /* Space between words so hover scaling doesn't overlap them */
+}
+
+/* Specific styling to ensure the second description line fits on one line */
+.hp-desc-subtext {
+    display: inline-block;
+    white-space: nowrap;
+    /* Prevent line wrapping */
+    font-size: 15px;
+    /* Slightly smaller so it fits */
+}
+
+.hp-desc-subtext .hp-hover-word {
+    margin: 0 1.5px;
+    /* Less margin so words can crowd together without breaking the line */
+}
+
+.hp-brand-text:hover,
+.hp-input-group label:hover,
+.hp-card h3:hover,
+.hp-card p:hover,
+.hp-price:hover,
+.hp-badge:hover,
+.hp-badge-lifetime:hover,
+.hp-quote:hover {
+    transform: scale(1.03);
+    /* 1.03 gives identical visual weight to large blocks of text */
+}
+
+.hp-hover-word:hover {
+    transform: scale(1.15);
+    /* Individual words get a stronger scaling effect to mimic the logo exactly */
+}
+
+/* Print Styles for Ctrl+P or Print Button */
+@media print {
+    body.hp-is-printing>* {
+        display: none !important;
+    }
+
+    body.hp-is-printing>#printableArea {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 auto !important;
+        padding: 0 15px !important;
+        left: unset !important;
+        right: unset !important;
+        top: unset !important;
+    }
+
+    body.hp-is-printing #printableArea * {
+        visibility: visible !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    @page {
+        margin: 15mm;
+    }
+}
+
+/* Custom Admin Dashboard Responsive Styles */
+@media (max-width: 1024px) {
+    .hp-admin-dashboard-wrap {
+        flex-direction: column !important;
+    }
+
+    .hp-admin-sidebar {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .hp-admin-sidebar ul {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hp-admin-sidebar ul li {
+        flex: 1 1 auto;
+    }
+}
+
+/* ========================================================================
+   DARK THEME OVERRIDES
+   ======================================================================== */
+.hp-dark-theme {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-title,
+.hp-dark-theme .hp-brand-text,
+.hp-dark-theme .hp-desc,
+.hp-dark-theme .hp-desc-highlight,
+.hp-dark-theme .hp-desc-subtext {
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-title {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hp-dark-theme .hp-input-group {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.hp-dark-theme .hp-input-group label {
+    color: #ccc;
+}
+
+.hp-dark-theme input[type="number"] {
+    background: #2a2a2a;
+    border: 2px solid #444;
+    color: #fff;
+}
+
+.hp-dark-theme input[type="number"]:focus {
+    border-color: #1a73e8;
+    background: #333;
+}
+
+.hp-dark-theme .hp-card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.hp-dark-theme .hp-card h3 {
+    color: #fff;
+    border-bottom: 2px solid #333;
+}
+
+.hp-dark-theme .hp-product-meta span {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #ddd;
+}
+
+.hp-dark-theme .hp-badge {
+    color: #ffd700;
+}
+
+.hp-dark-theme .hp-badge-lifetime {
+    color: #00ff88;
+}
+
+.hp-dark-theme .hp-estimate-row {
+    background: #252525;
+    border-right: 4px solid #1a73e8;
+}
+
+.hp-dark-theme .hp-estimate-row strong,
+.hp-dark-theme .hp-estimate-row span.eng-num {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-details {
+    background: #252525;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-ben-title {
+    color: #4da8da;
+}
+
+.hp-dark-theme .hp-ben-list li {
+    color: #ccc;
+}
+
+.hp-dark-theme .hp-ben-list li::before {
+    color: #4da8da;
+}
+
+.hp-dark-theme .hp-variant {
+    background: #252525;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-variant h4 {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-btn-whatsapp {
+    background: #075e54;
+}
+
+.hp-dark-theme .hp-btn-whatsapp:hover {
+    background: #128c7e;
+}
+
+.hp-dark-theme .hp-btn-video {
+    background: #b31217;
+}
+
+.hp-dark-theme .hp-btn-video:hover {
+    background: #e52d27;
+}
+
+.hp-dark-theme .hp-btn-feedback {
+    background: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-btn-feedback:hover {
+    background: #4a4a4a;
+    color: #fff;
+}
+
+.hp-dark-theme .hp-social-section {
+    background: #1e1e1e;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-social-section h3 {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-powered-by p {
+    color: #aaa;
+}
+
+.hp-dark-theme .hp-powered-by p strong {
+    color: #ccc;
+}
+
+/* ========================================================================
+   NEW SECTIONS: MENU, FAQ, SHARE SETTINGS
+   ======================================================================== */
+.hp-menu {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #bbdefb;
+}
+
+.hp-menu-item {
+    text-decoration: none;
+    color: #1a73e8;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: #fff;
+    border: 1px solid #1a73e8;
+}
+
+.hp-menu-item:hover {
+    background: #1a73e8;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
+}
+
+.hp-faq-section {
+    margin-top: 40px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.hp-faq-section h3.faq-main-heading {
+    text-align: center;
+    color: #1a73e8;
+    font-size: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.hp-faq-category {
+    font-size: 24px;
+    color: #d32f2f;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-right: 4px solid #d32f2f;
+    padding-right: 10px;
+}
+
+.hp-faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #dce4ec;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.hp-faq-question {
+    width: 100%;
+    text-align: right;
+    background: #f8f9fa;
+    border: none;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.hp-faq-question:hover {
+    background: #e9ecef;
+}
+
+.hp-faq-question::after {
+    content: '+';
+    font-size: 24px;
+    color: #1a73e8;
+    margin-right: 15px;
+    transition: transform 0.3s;
+}
+
+.hp-faq-question.active::after {
+    transform: rotate(45deg);
+}
+
+.hp-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: #fff;
+    padding: 0 20px;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.hp-faq-answer p {
+    margin: 15px 0;
+}
+
+.hp-share-section {
+    margin-top: 40px;
+    padding: 30px;
+    background: #fff8e1;
+    border-radius: 12px;
+    border: 1px solid #ffecb3;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.1);
+}
+
+.hp-share-section h3 {
+    color: #f57f17;
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.hp-share-section p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.hp-share-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hp-share-grid .hp-btn {
+    min-width: 150px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Dark theme overrides for new sections */
+.hp-dark-theme .hp-menu { background: #1e1e1e; border-color: #333; }
+.hp-dark-theme .hp-menu-item { background: #252525; color: #4da8da; border-color: #4da8da; }
+.hp-dark-theme .hp-menu-item:hover { background: #4da8da; color: #fff; }
+
+.hp-dark-theme .hp-faq-section { background: #1e1e1e; border-color: #333; }
+.hp-dark-theme .hp-faq-section h3.faq-main-heading { color: #4da8da; border-color: #333; }
+.hp-dark-theme .hp-faq-item { border-color: #333; }
+.hp-dark-theme .hp-faq-question { background: #252525; color: #fff; }
+.hp-dark-theme .hp-faq-question:hover { background: #2a2a2a; }
+.hp-dark-theme .hp-faq-answer { background: #1e1e1e; color: #ccc; }
+
+.hp-dark-theme .hp-share-section { background: #1e1e1e; border-color: #333; }
+.hp-dark-theme .hp-share-section h3 { color: #fbc02d; }
+.hp-dark-theme .hp-share-section p { color: #ccc; }
+
+/* Mobile Fixes for Standalone HTML */
+@media (max-width: 480px) {
+    .hp-estimator-container {
+        padding: 15px !important;
+        margin: 10px auto !important;
+        width: 100% !important;
+        max-width: calc(100vw - 20px) !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        left: unset !important;
+        right: unset !important;
+    }
+}
+
+
+
+/* ========================================================================
+   STANDALONE MOBILE OVERFLOW FIX
+   ======================================================================== */
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .hp-estimator-container {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        margin: 10px auto !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+}
+    const savedTheme = localStorage.getItem('hp_theme_mode');
+    if (savedTheme === 'dark') {
+        container.classList.add('hp-dark-theme');
+    } else if (savedTheme === 'light') {
+        container.classList.remove('hp-dark-theme');
+    }
+
+    // Update button text based on current state
+    if (container && themeToggleText) {
+        themeToggleText.innerText = container.classList.contains('hp-dark-theme') ? 'وائٹ تھیم' : 'ڈارک تھیم';
+    }
+
+    if (themeToggleBtn && container) {
+        themeToggleBtn.addEventListener('click', function () {
+            container.classList.toggle('hp-dark-theme');
+            const isDark = container.classList.contains('hp-dark-theme');
+            localStorage.setItem('hp_theme_mode', isDark ? 'dark' : 'light');
+            if (themeToggleText) {
+                themeToggleText.innerText = isDark ? 'وائٹ تھیم' : 'ڈارک تھیم';
+            }
+        });
+    }
+
+    const calculateBtn = document.getElementById('hpCalculateBtn');
+
+    if (calculateBtn) {
+        calculateBtn.addEventListener('click', function () {
+            calculateEstimates();
+        });
+    }
+
+    const areaInput = document.getElementById('roofArea');
+    if (areaInput) {
+        areaInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                calculateEstimates();
+            }
+        });
+    }
+});
+
+function calculateEstimates() {
+    const areaInput = document.getElementById('roofArea').value;
+    const errorDiv = document.getElementById('hpError');
+    const resultsDiv = document.getElementById('hpResults');
+
+    if (!areaInput || areaInput <= 0) {
+        errorDiv.classList.remove('hidden');
+        resultsDiv.classList.add('hidden');
+        return;
+    }
+
+    const area = parseFloat(areaInput);
+    currentEstimates.area = area;
+    errorDiv.classList.add('hidden');
+
+    // Fetch dynamic prices from localized WordPress object or use defaults
+    const prices = typeof hpSettings !== 'undefined' ? hpSettings : {
+        coating: 7500,
+        chipsSpecial: 2800,
+        chipsSuper: 2300,
+        chipsEconomy: 1800,
+        tileMat: 300,
+        tileSummer: 250
+    };
+
+    // --- Product 1: Solar Roof Coating ---
+    const coatingBuckets = Math.ceil(area / 400);
+    const coatingCost = coatingBuckets * parseFloat(prices.coating);
+    currentEstimates.coating = coatingCost;
+
+    document.getElementById('coatingBuckets').innerText = coatingBuckets;
+    document.getElementById('coatingCost').innerText = formatCurrency(coatingCost);
+
+    // --- Product 2: Solar Chips ---
+    const chipsBags = Math.ceil(area / 12);
+
+    const chipsSpecialCost = chipsBags * parseFloat(prices.chipsSpecial);
+    const chipsSuperCost = chipsBags * parseFloat(prices.chipsSuper);
+    const chipsEconomyCost = chipsBags * parseFloat(prices.chipsEconomy);
+
+    currentEstimates.chipsSpecial = chipsSpecialCost;
+    currentEstimates.chipsSuper = chipsSuperCost;
+    currentEstimates.chipsEconomy = chipsEconomyCost;
+
+    document.getElementById('chipsSpecialBags').innerText = chipsBags;
+    document.getElementById('chipsSpecialCost').innerText = formatCurrency(chipsSpecialCost);
+
+    document.getElementById('chipsSuperBags').innerText = chipsBags;
+    document.getElementById('chipsSuperCost').innerText = formatCurrency(chipsSuperCost);
+
+    document.getElementById('chipsEconomyBags').innerText = chipsBags;
+    document.getElementById('chipsEconomyCost').innerText = formatCurrency(chipsEconomyCost);
+
+    // --- Product 3: Solar Tiles ---
+    const tileMatCost = area * parseFloat(prices.tileMat);
+    const tileSummerCost = area * parseFloat(prices.tileSummer);
+
+    currentEstimates.tileMat = tileMatCost;
+    currentEstimates.tileSummer = tileSummerCost;
+
+    document.getElementById('tileMatCost').innerText = formatCurrency(tileMatCost);
+    document.getElementById('tileSummerCost').innerText = formatCurrency(tileSummerCost);
+
+    // Show results
+    resultsDiv.classList.remove('hidden');
+
+    setTimeout(() => {
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+
+    // Save strictly to the backend database via AJAX silently
+    if (typeof hpSettings !== 'undefined' && typeof jQuery !== 'undefined' && hpSettings.ajaxUrl) {
+        jQuery.post(hpSettings.ajaxUrl, {
+            action: 'hp_save_estimate',
+            area: area,
+            coating_cost: coatingCost,
+            chips_special_cost: chipsSpecialCost,
+            chips_super_cost: chipsSuperCost,
+            chips_economy_cost: chipsEconomyCost,
+            tile_mat_cost: tileMatCost,
+            tile_summer_cost: tileSummerCost
+        });
+    }
+}
+
+function formatCurrency(num) {
+    return num.toLocaleString('en-PK');
+}
+
+window.sendWhatsApp = function (productType) {
+    if (!currentEstimates.area || currentEstimates.area <= 0) {
+        alert("براہ کرم پہلے رقبہ درج کریں۔");
+        return;
+    }
+
+    let productDetails = "";
+    let productName = "";
+
+    if (productType === 'coating') {
+        productName = "سولر روف کوٹنگ";
+        productDetails = `(قیمت: ${formatCurrency(currentEstimates.coating)} روپے)`;
+    } else if (productType === 'chips') {
+        productName = "سولر چپس (ٹھنڈی چپس)";
+        productDetails = `(سپیشل کوالٹی: ${formatCurrency(currentEstimates.chipsSpecial)} روپے، سپر فیس: ${formatCurrency(currentEstimates.chipsSuper)} روپے، اکانومی: ${formatCurrency(currentEstimates.chipsEconomy)} روپے)`;
+    } else if (productType === 'tiles') {
+        productName = "سولر ٹائل";
+        productDetails = `(منور ائرکنڈیشننگ ٹائل: ${formatCurrency(currentEstimates.tileMat)} روپے، صرف گرمی والی ٹائل: ${formatCurrency(currentEstimates.tileSummer)} روپے)`;
+    }
+
+    const msg = `السلام علیکم، میں نے آپ کی ویب سائٹ پر اپنی چھت کا رقبہ (${currentEstimates.area} مربع فٹ) درج کر کے ہیٹ پروفنگ کا تخمینہ لگایا ہے۔\n\nمیں *${productName}* کے حوالے سے آپ کی سروس حاصل کرنے میں دلچسپی رکھتا/رکھتی ہوں۔\nاس ایسٹیمیٹ کے مطابق بل یہ بن رہا ہے: ${productDetails}\n\nبراہ کرم مزید رہنمائی فرمائیں۔`;
+
+    const whatsappNumber = (typeof hpSettings !== 'undefined' && hpSettings.whatsappNumber) ? hpSettings.whatsappNumber : "923006786890";
+    // Strip any non-numeric characters for the wa.me link
+    const cleanNumber = whatsappNumber.replace(/\D/g, '');
+    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(msg)}`;
+
+    window.open(whatsappUrl, '_blank');
+};
+
+// Print Function (Reliable Centering)
+window.printEstimate = function () {
+    const printArea = document.getElementById('printableArea');
+    const originalParent = printArea.parentNode;
+    const originalNextSibling = printArea.nextSibling;
+
+    // Move printable area directly to body to escape WordPress theme relative constraints
+    document.body.appendChild(printArea);
+
+    // Add a printing class to body to activate our specific CSS rules
+    document.body.classList.add('hp-is-printing');
+
+    // Add static area text for print
+    const areaInput = document.getElementById('roofArea');
+    const printText = document.createElement('div');
+    printText.id = 'temp-print-text';
+    printText.innerText = `کل رقبہ: ${areaInput.value} مربع فٹ`;
+    printText.style.fontWeight = "900";
+    printText.style.fontSize = "22px";
+    printText.style.color = "#000000";
+    printText.style.textAlign = "center";
+    printText.style.marginBottom = "10px";
+    printText.style.borderBottom = "2px dashed #000";
+    printText.style.paddingBottom = "5px";
+    printText.dir = "rtl";
+
+    const inputGroup = document.querySelector('#printableArea .hp-input-group');
+    if (inputGroup) {
+        inputGroup.parentNode.insertBefore(printText, inputGroup);
+    }
+
+    // Give browser a split second to render the DOM change before freezing for print dialog
+    // Modern browsers allow synchronous print if initiated by user click, 
+    // but sometimes need a tick to repaint the newly appended DOM.
+    setTimeout(() => {
+        window.print();
+
+        // Restore everything immediately after the print dialog closes
+        if (printText.parentNode) {
+            printText.parentNode.removeChild(printText);
+        }
+        document.body.classList.remove('hp-is-printing');
+        if (originalNextSibling) {
+            originalParent.insertBefore(printArea, originalNextSibling);
+        } else {
+            originalParent.appendChild(printArea);
+        }
+    }, 50);
+};
+
+// PDF Generation Function
+window.generatePDF = function () {
+    const element = document.getElementById('printableArea');
+
+    // 1. Inject a ruthless CSS block to force dark colors and bold text
+    // Nastaleeq fonts are thin and can render light/faded in Canvas.
+    const style = document.createElement('style');
+    style.id = 'temp-pdf-style';
+    style.innerHTML = `
+        /* Lock width to a standard size so canvas scaling is consistent */
+        #printableArea { background: #ffffff !important; padding: 15px !important; width: 800px !important; margin: 0 auto !important; box-sizing: border-box; }
+        #printableArea * { 
+            color: #000000 !important; 
+            opacity: 1 !important;
+            font-weight: 900 !important; /* Force bold to prevent fading */
+            text-shadow: none !important;
+        }
+        #printableArea .hp-title { color: #1a73e8 !important; font-size: 26px !important; }
+        #printableArea .hp-price { color: #d32f2f !important; border-bottom: 2px solid #d32f2f !important; display: inline-block; }
+        #printableArea .hp-card, #printableArea .hp-variant { border: 2px solid #000000 !important; background: #ffffff !important; }
+        #printableArea .hp-badge, #printableArea .hp-badge-lifetime { border: 2px solid #000000 !important; }
+        #printableArea .hp-social-section { border: 2px solid #1a73e8 !important; background: #f8f9fa !important; }
+        #printableArea .hp-social-grid a { border: 1px solid #000000 !important; color: #000000 !important; }
+        #printableArea .hp-powered-by { color: #000000 !important; border-top: 1px solid #000000 !important; }
+        
+        /* Hide things we don't want */
+        #printableArea .no-print, 
+        #printableArea .hp-input-group, 
+        #printableArea .hp-btn-whatsapp, 
+        #printableArea .hp-btn-video,
+        #printableArea .pdf-actions {
+            display: none !important;
+        }
+        
+        /* Compress spacing for 1 page */
+        #printableArea .hp-card { margin-bottom: 8px !important; padding: 10px !important; }
+        #printableArea .hp-variant { margin-bottom: 5px !important; padding: 5px !important; }
+        #printableArea .hp-header { margin-bottom: 5px !important; padding-bottom: 5px !important; }
+        #printableArea h3 { padding-bottom: 2px !important; margin-bottom: 2px !important; }
+        #printableArea p { margin: 2px 0 !important; }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Insert static text for Area, hide original input area completely
+    const areaInput = document.getElementById('roofArea');
+    const printText = document.createElement('div');
+    // Removed English 'Sq Ft' to prevent RTL text overlapping
+    printText.innerText = `کل رقبہ: ${areaInput.value} مربع فٹ`;
+    printText.style.fontWeight = "900";
+    printText.style.fontSize = "22px";
+    printText.style.color = "#000000";
+    printText.style.textAlign = "center";
+    printText.style.marginBottom = "10px";
+    printText.style.borderBottom = "2px dashed #000";
+    printText.style.paddingBottom = "5px";
+    printText.dir = "rtl";
+
+    const inputGroup = document.querySelector('.hp-input-group');
+    inputGroup.parentNode.insertBefore(printText, inputGroup);
+
+    // Force a small delay to let browser reflow the injected styles before taking the picture
+    setTimeout(() => {
+        // 3. Take a high-quality picture of the container
+        window.html2canvas(element, {
+            scale: 2, // High resolution for sharp text
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
+        }).then(canvas => {
+            // 4. Force fit the picture rigidly to A4 width, allowing multiple pages for height
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+            // A4 size dimensions in mm
+            const pdfWidth = 210;
+            const pdfHeight = 297;
+
+            // Margins
+            const margin = 10;
+            const usableWidth = pdfWidth - (margin * 2);
+            const usableHeight = pdfHeight - (margin * 2);
+
+            // Maintain aspect ratio to find the height needed
+            const imgRatio = canvas.width / canvas.height;
+            const finalWidth = usableWidth;
+            const finalHeight = finalWidth / imgRatio;
+
+            // Create PDF
+            const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+
+            // Draw the image, paginating it if it exceeds one page height
+            let heightLeft = finalHeight;
+            let position = margin;
+
+            // First page
+            pdf.addImage(imgData, 'JPEG', margin, position, finalWidth, finalHeight);
+            heightLeft -= usableHeight;
+
+            // Remaining pages
+            while (heightLeft > 0) {
+                position = position - usableHeight - margin; // Shift image UP by a full page
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', margin, position, finalWidth, finalHeight);
+                heightLeft -= usableHeight;
+            }
+
+            pdf.save('heatproofing-estimate.pdf');
+
+            // 5. Cleanup
+            document.head.removeChild(style);
+            printText.parentNode.removeChild(printText);
+        });
+    }, 200);
+}
+
+// Intercept Ctrl+P to optionally trigger PDF download or print this section directly
+document.addEventListener('keydown', function (event) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'p') {
+        const resultsDiv = document.getElementById('hpResults');
+        if (resultsDiv && !resultsDiv.classList.contains('hidden')) {
+            event.preventDefault();
+            window.printEstimate();
+        }
+    }
+});
+
+    </script>
+</body>
+</html>
