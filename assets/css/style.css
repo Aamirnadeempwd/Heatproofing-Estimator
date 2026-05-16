@@ -751,10 +751,32 @@
         font-size: 18px;
     }
 
+    .hp-product-meta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
     .hp-badge,
-    .hp-badge-lifetime {
+    .hp-badge-lifetime,
+    .hp-quote {
         display: block;
-        width: fit-content;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+    }
+
+    .hp-estimate-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .hp-price-inline {
+        width: 100%;
+        text-align: right;
+        padding-top: 5px;
+        border-top: 1px dashed #ddd;
     }
 
     .hp-video-group {
@@ -765,11 +787,18 @@
         width: 100%;
     }
 
+    .hp-social-grid {
+        grid-template-columns: 1fr;
+        /* Switch to 1 column */
+    }
+
     .hp-social-grid .hp-btn,
     .hp-btn-pdf,
     .hp-btn-print {
+        flex: 0 0 100%;
+        /* Force 100% width on flex children */
+        max-width: 100%;
         width: 100%;
-        /* Stack to 1 column on small phones */
     }
 }
 
@@ -853,3 +882,380 @@
         margin: 15mm;
     }
 }
+
+/* Custom Admin Dashboard Responsive Styles */
+@media (max-width: 1024px) {
+    .hp-admin-dashboard-wrap {
+        flex-direction: column !important;
+    }
+
+    .hp-admin-sidebar {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .hp-admin-sidebar ul {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hp-admin-sidebar ul li {
+        flex: 1 1 auto;
+    }
+}
+
+/* ========================================================================
+   DARK THEME OVERRIDES
+   ======================================================================== */
+.hp-dark-theme {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-title,
+.hp-dark-theme .hp-brand-text,
+.hp-dark-theme .hp-desc,
+.hp-dark-theme .hp-desc-highlight,
+.hp-dark-theme .hp-desc-subtext {
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-title {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hp-dark-theme .hp-input-group {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.hp-dark-theme .hp-input-group label {
+    color: #ccc;
+}
+
+.hp-dark-theme input[type="number"] {
+    background: #2a2a2a;
+    border: 2px solid #444;
+    color: #fff;
+}
+
+.hp-dark-theme input[type="number"]:focus {
+    border-color: #1a73e8;
+    background: #333;
+}
+
+.hp-dark-theme .hp-card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.hp-dark-theme .hp-card h3 {
+    color: #fff;
+    border-bottom: 2px solid #333;
+}
+
+.hp-dark-theme .hp-product-meta span {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #ddd;
+}
+
+.hp-dark-theme .hp-badge {
+    color: #ffd700;
+}
+
+.hp-dark-theme .hp-badge-lifetime {
+    color: #00ff88;
+}
+
+.hp-dark-theme .hp-estimate-row {
+    background: #252525;
+    border-right: 4px solid #1a73e8;
+}
+
+.hp-dark-theme .hp-estimate-row strong,
+.hp-dark-theme .hp-estimate-row span.eng-num {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-details {
+    background: #252525;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-ben-title {
+    color: #4da8da;
+}
+
+.hp-dark-theme .hp-ben-list li {
+    color: #ccc;
+}
+
+.hp-dark-theme .hp-ben-list li::before {
+    color: #4da8da;
+}
+
+.hp-dark-theme .hp-variant {
+    background: #252525;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-variant h4 {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-btn-whatsapp {
+    background: #075e54;
+}
+
+.hp-dark-theme .hp-btn-whatsapp:hover {
+    background: #128c7e;
+}
+
+.hp-dark-theme .hp-btn-video {
+    background: #b31217;
+}
+
+.hp-dark-theme .hp-btn-video:hover {
+    background: #e52d27;
+}
+
+.hp-dark-theme .hp-btn-feedback {
+    background: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.hp-dark-theme .hp-btn-feedback:hover {
+    background: #4a4a4a;
+    color: #fff;
+}
+
+.hp-dark-theme .hp-social-section {
+    background: #1e1e1e;
+    border: 1px solid #333;
+}
+
+.hp-dark-theme .hp-social-section h3 {
+    color: #fff;
+}
+
+.hp-dark-theme .hp-powered-by p {
+    color: #aaa;
+}
+
+.hp-dark-theme .hp-powered-by p strong {
+    color: #ccc;
+}
+
+
+
+/* Mobile Fixes for Standalone HTML */
+@media (max-width: 480px) {
+    .hp-estimator-container {
+        padding: 15px !important;
+        margin: 10px auto !important;
+        width: 100% !important;
+        max-width: calc(100vw - 20px) !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        left: unset !important;
+        right: unset !important;
+    }
+}
+
+
+
+/* ========================================================================
+   STANDALONE MOBILE OVERFLOW FIX
+   ======================================================================== */
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .hp-estimator-container {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        margin: 10px auto !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+}
+
+/* ========================================================================
+   NEW SECTIONS: MENU, FAQ, SHARE SETTINGS
+   ======================================================================== */
+.hp-menu {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #bbdefb;
+}
+
+.hp-menu-item {
+    text-decoration: none;
+    color: #1a73e8;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: #fff;
+    border: 1px solid #1a73e8;
+}
+
+.hp-menu-item:hover {
+    background: #1a73e8;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
+}
+
+.hp-faq-section {
+    margin-top: 40px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.hp-faq-section h3.faq-main-heading {
+    text-align: center;
+    color: #1a73e8;
+    font-size: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.hp-faq-category {
+    font-size: 24px;
+    color: #d32f2f;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-right: 4px solid #d32f2f;
+    padding-right: 10px;
+}
+
+.hp-faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #dce4ec;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.hp-faq-question {
+    width: 100%;
+    text-align: right;
+    background: #f8f9fa;
+    border: none;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.hp-faq-question:hover {
+    background: #e9ecef;
+}
+
+.hp-faq-question::after {
+    content: '+';
+    font-size: 24px;
+    color: #1a73e8;
+    margin-right: 15px;
+    transition: transform 0.3s;
+}
+
+.hp-faq-question.active::after {
+    transform: rotate(45deg);
+}
+
+.hp-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: #fff;
+    padding: 0 20px;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.hp-faq-answer p {
+    margin: 15px 0;
+}
+
+.hp-share-section {
+    margin-top: 40px;
+    padding: 30px;
+    background: #fff8e1;
+    border-radius: 12px;
+    border: 1px solid #ffecb3;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.1);
+}
+
+.hp-share-section h3 {
+    color: #f57f17;
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.hp-share-section p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.hp-share-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hp-share-grid .hp-btn {
+    min-width: 150px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Dark theme overrides for new sections */
+.hp-dark-theme .hp-menu { background: #1e1e1e; border-color: #333; }
+.hp-dark-theme .hp-menu-item { background: #252525; color: #4da8da; border-color: #4da8da; }
+.hp-dark-theme .hp-menu-item:hover { background: #4da8da; color: #fff; }
+
+.hp-dark-theme .hp-faq-section { background: #1e1e1e; border-color: #333; }
+.hp-dark-theme .hp-faq-section h3.faq-main-heading { color: #4da8da; border-color: #333; }
+.hp-dark-theme .hp-faq-item { border-color: #333; }
+.hp-dark-theme .hp-faq-question { background: #252525; color: #fff; }
+.hp-dark-theme .hp-faq-question:hover { background: #2a2a2a; }
+.hp-dark-theme .hp-faq-answer { background: #1e1e1e; color: #ccc; }
+
+.hp-dark-theme .hp-share-section { background: #1e1e1e; border-color: #333; }
+.hp-dark-theme .hp-share-section h3 { color: #fbc02d; }
+.hp-dark-theme .hp-share-section p { color: #ccc; }
+

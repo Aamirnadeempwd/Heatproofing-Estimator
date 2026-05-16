@@ -1,15 +1,39 @@
 // Keep raw values for WhatsApp messaging
 let currentEstimates = {
     area: 0,
-    coating: 0,
-    chipsSpecial: 0,
-    chipsSuper: 0,
-    chipsEconomy: 0,
-    tileMat: 0,
-    tileSummer: 0
+    dynamic: {}
 };
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Theme Toggle Logic
+    const container = document.getElementById('printableArea');
+    const themeToggleBtn = document.getElementById('hpThemeToggle');
+    const themeToggleText = document.getElementById('hpThemeToggleText');
+
+    // Check localStorage for saved preference, overriding PHP default if exists
+    const savedTheme = localStorage.getItem('hp_theme_mode');
+    if (savedTheme === 'dark') {
+        container.classList.add('hp-dark-theme');
+    } else if (savedTheme === 'light') {
+        container.classList.remove('hp-dark-theme');
+    }
+
+    // Update button text based on current state
+    if (container && themeToggleText) {
+        themeToggleText.innerText = container.classList.contains('hp-dark-theme') ? 'وائٹ تھیم' : 'ڈارک تھیم';
+    }
+
+    if (themeToggleBtn && container) {
+        themeToggleBtn.addEventListener('click', function () {
+            container.classList.toggle('hp-dark-theme');
+            const isDark = container.classList.contains('hp-dark-theme');
+            localStorage.setItem('hp_theme_mode', isDark ? 'dark' : 'light');
+            if (themeToggleText) {
+                themeToggleText.innerText = isDark ? 'وائٹ تھیم' : 'ڈارک تھیم';
+            }
+        });
+    }
+
     const calculateBtn = document.getElementById('hpCalculateBtn');
 
     if (calculateBtn) {
@@ -43,43 +67,49 @@ function calculateEstimates() {
     currentEstimates.area = area;
     errorDiv.classList.add('hidden');
 
-    // --- Product 1: Solar Roof Coating ---
-    const coatingBuckets = Math.ceil(area / 400);
-    const coatingCost = coatingBuckets * 7500;
-    currentEstimates.coating = coatingCost;
+    // Fetch dynamic prices from localized WordPress object
+    const customProducts = (typeof hpSettings !== 'undefined' && hpSettings.customProducts) ? hpSettings.customProducts : [];
+    
+    let dynamicCostsObj = {};
 
-    document.getElementById('coatingBuckets').innerText = coatingBuckets;
-    document.getElementById('coatingCost').innerText = formatCurrency(coatingCost);
+    customProducts.forEach(prod => {
+        const id = prod.id;
+        const div = parseFloat(prod.coverage_divisor) || 1;
+        const totalQuantity = (div === 1) ? area : Math.ceil(area / div);
+        
+        let prodStore = {
+            name: prod.name,
+            unitName: prod.unit_name,
+            totalQuantity: totalQuantity,
+            variants: {}
+        };
 
-    // --- Product 2: Solar Chips ---
-    const chipsBags = Math.ceil(area / 12);
-
-    const chipsSpecialCost = chipsBags * 2800;
-    const chipsSuperCost = chipsBags * 2300;
-    const chipsEconomyCost = chipsBags * 1800;
-
-    currentEstimates.chipsSpecial = chipsSpecialCost;
-    currentEstimates.chipsSuper = chipsSuperCost;
-    currentEstimates.chipsEconomy = chipsEconomyCost;
-
-    document.getElementById('chipsSpecialBags').innerText = chipsBags;
-    document.getElementById('chipsSpecialCost').innerText = formatCurrency(chipsSpecialCost);
-
-    document.getElementById('chipsSuperBags').innerText = chipsBags;
-    document.getElementById('chipsSuperCost').innerText = formatCurrency(chipsSuperCost);
-
-    document.getElementById('chipsEconomyBags').innerText = chipsBags;
-    document.getElementById('chipsEconomyCost').innerText = formatCurrency(chipsEconomyCost);
-
-    // --- Product 3: Solar Tiles ---
-    const tileMatCost = area * 300;
-    const tileSummerCost = area * 250;
-
-    currentEstimates.tileMat = tileMatCost;
-    currentEstimates.tileSummer = tileSummerCost;
-
-    document.getElementById('tileMatCost').innerText = formatCurrency(tileMatCost);
-    document.getElementById('tileSummerCost').innerText = formatCurrency(tileSummerCost);
+        if (prod.variants.length === 1) {
+            const variant = prod.variants[0];
+            const cost = totalQuantity * parseFloat(variant.price);
+            
+            prodStore.variants[variant.id] = { name: variant.name, price: variant.price, cost: cost };
+            
+            // update UI
+            const qtyEl = document.getElementById(id + '_quantity');
+            if (qtyEl) qtyEl.innerText = totalQuantity;
+            const costEl = document.getElementById(id + '_cost_' + variant.id);
+            if (costEl) costEl.innerText = formatCurrency(cost);
+        } else {
+            prod.variants.forEach(variant => {
+                const cost = totalQuantity * parseFloat(variant.price);
+                prodStore.variants[variant.id] = { name: variant.name, price: variant.price, cost: cost };
+                
+                const qtyEl = document.getElementById(id + '_quantity_' + variant.id);
+                if (qtyEl) qtyEl.innerText = totalQuantity;
+                const costEl = document.getElementById(id + '_cost_' + variant.id);
+                if (costEl) costEl.innerText = formatCurrency(cost);
+            });
+        }
+        
+        currentEstimates.dynamic[id] = prodStore;
+        dynamicCostsObj[id] = prodStore;
+    });
 
     // Show results
     resultsDiv.classList.remove('hidden');
@@ -87,6 +117,15 @@ function calculateEstimates() {
     setTimeout(() => {
         resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
+
+    // Save strictly to the backend database via AJAX silently
+    if (typeof hpSettings !== 'undefined' && typeof jQuery !== 'undefined' && hpSettings.ajaxUrl) {
+        jQuery.post(hpSettings.ajaxUrl, {
+            action: 'hp_save_estimate',
+            area: area,
+            dynamic_costs: JSON.stringify(dynamicCostsObj)
+        });
+    }
 }
 
 function formatCurrency(num) {
@@ -99,24 +138,29 @@ window.sendWhatsApp = function (productType) {
         return;
     }
 
-    let productDetails = "";
-    let productName = "";
+    const prodData = currentEstimates.dynamic[productType];
+    if (!prodData) return;
 
-    if (productType === 'coating') {
-        productName = "سولر روف کوٹنگ";
-        productDetails = `(قیمت: ${formatCurrency(currentEstimates.coating)} روپے)`;
-    } else if (productType === 'chips') {
-        productName = "سولر چپس (ٹھنڈی چپس)";
-        productDetails = `(سپیشل کوالٹی: ${formatCurrency(currentEstimates.chipsSpecial)} روپے، سپر فیس: ${formatCurrency(currentEstimates.chipsSuper)} روپے، اکانومی: ${formatCurrency(currentEstimates.chipsEconomy)} روپے)`;
-    } else if (productType === 'tiles') {
-        productName = "سولر ٹائل";
-        productDetails = `(منور ائرکنڈیشننگ ٹائل: ${formatCurrency(currentEstimates.tileMat)} روپے، صرف گرمی والی ٹائل: ${formatCurrency(currentEstimates.tileSummer)} روپے)`;
+    let productName = prodData.name;
+    let variantDetails = [];
+    
+    for (let vId in prodData.variants) {
+        let v = prodData.variants[vId];
+        if (Object.keys(prodData.variants).length === 1 && (!v.name || v.name === "سٹینڈرڈ")) {
+            variantDetails.push("قیمت: " + formatCurrency(v.cost) + " روپے");
+        } else {
+            variantDetails.push(v.name + ": " + formatCurrency(v.cost) + " روپے");
+        }
     }
+    
+    let productDetails = "(" + variantDetails.join('، ') + ")";
 
     const msg = `السلام علیکم، میں نے آپ کی ویب سائٹ پر اپنی چھت کا رقبہ (${currentEstimates.area} مربع فٹ) درج کر کے ہیٹ پروفنگ کا تخمینہ لگایا ہے۔\n\nمیں *${productName}* کے حوالے سے آپ کی سروس حاصل کرنے میں دلچسپی رکھتا/رکھتی ہوں۔\nاس ایسٹیمیٹ کے مطابق بل یہ بن رہا ہے: ${productDetails}\n\nبراہ کرم مزید رہنمائی فرمائیں۔`;
 
-    const whatsappNumber = "923006786890";
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+    const whatsappNumber = (typeof hpSettings !== 'undefined' && hpSettings.whatsappNumber) ? hpSettings.whatsappNumber : "923006786890";
+    // Strip any non-numeric characters for the wa.me link
+    const cleanNumber = whatsappNumber.replace(/\D/g, '');
+    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(msg)}`;
 
     window.open(whatsappUrl, '_blank');
 };
@@ -295,3 +339,58 @@ document.addEventListener('keydown', function (event) {
         }
     }
 });
+
+// FAQ Accordion Logic
+document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.hp-faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const isActive = question.classList.contains('active');
+
+            // Close all answers
+            document.querySelectorAll('.hp-faq-answer').forEach(ans => {
+                ans.style.maxHeight = null;
+            });
+            document.querySelectorAll('.hp-faq-question').forEach(q => {
+                q.classList.remove('active');
+            });
+
+            // If it wasn't active, open it
+            if (!isActive) {
+                question.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        });
+    });
+});
+
+// Share Functions
+window.shareEstimator = function(platform) {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent("سوبر ٹیکنالوجیز ہیٹ پروفنگ ایسٹیمیٹر");
+    const text = encodeURIComponent("اپنے گھر کی ہیٹ پروفنگ کا تخمینہ آسانی سے لگائیں:");
+    
+    let shareUrl = "";
+    
+    if (platform === 'whatsapp') {
+        shareUrl = `https://api.whatsapp.com/send?text=${title}%0A${text}%0A${url}`;
+    } else if (platform === 'facebook') {
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    } else if (platform === 'twitter') {
+        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+    }
+    
+    if (shareUrl) {
+        window.open(shareUrl, '_blank', 'width=600,height=400');
+    }
+};
+
+window.copyEstimatorLink = function() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        alert("لنک کاپی ہو گیا!");
+    }).catch(err => {
+        console.error('Copy failed: ', err);
+    });
+};
