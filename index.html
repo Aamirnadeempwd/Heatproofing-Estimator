@@ -496,8 +496,9 @@ body.hp-dark-body::before {
 
 .hp-product-img {
     width: 100%;
-    max-height: 350px;
-    object-fit: cover;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -1859,7 +1860,7 @@ body .hp-estimator-container * { min-width: 0; }
 body .hp-estimator-container img { max-width: 100%; }
 
 /* product image: always full width, never a broken box */
-body .hp-estimator-container .hp-product-img { width: 100% !important; height: auto !important; display: block; border-radius: 12px; }
+body .hp-estimator-container .hp-product-img { width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; display: block; border-radius: 12px; }
 body .hp-estimator-container .hp-product-img.hp-img-missing { display: none !important; }
 
 /* badge + quote pills: wrap neatly, centred */
