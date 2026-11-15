@@ -422,14 +422,27 @@
 
             <div class="form-row">
                 <div class="form-col">
+                    <label>ایک یونٹ کا نام (واحد):</label>
+                    <input type="text" id="p1_unit_single">
+                    <div class="hint">مثلاً: بالٹی (ایسٹیمیٹ میں "قیمت فی بالٹی" لکھا آئے گا)</div>
+                </div>
+                <div class="form-col">
+                    <label>وزن فی یونٹ (Weight):</label>
+                    <input type="text" id="p1_weight">
+                    <div class="hint">مثلاً: 20 کلوگرام</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
                     <label>یونٹ کا نام (Unit Name):</label>
                     <input type="text" id="p1_unit_name">
                     <div class="hint">مثلاً: بالٹیاں</div>
                 </div>
                 <div class="form-col">
-                    <label>یونٹ کی تفصیل (Unit Description):</label>
+                    <label>اضافی نوٹ (اختیاری):</label>
                     <input type="text" id="p1_unit_desc">
-                    <div class="hint">مثلاً: 20 لیٹر فی بالٹی</div>
+                    <div class="hint">مثلاً: 20 لیٹر فی بالٹی (ایسٹیمیٹ کے نیچے چھوٹا لکھا آئے گا، خالی چھوڑیں تو نہیں آئے گا)</div>
                 </div>
                 <div class="form-col">
                     <label>بیج ٹیکسٹ (Badge Text):</label>
@@ -503,14 +516,27 @@
 
             <div class="form-row">
                 <div class="form-col">
+                    <label>ایک یونٹ کا نام (واحد):</label>
+                    <input type="text" id="p2_unit_single">
+                    <div class="hint">مثلاً: بیگ (ایسٹیمیٹ میں "قیمت فی بیگ" لکھا آئے گا)</div>
+                </div>
+                <div class="form-col">
+                    <label>وزن فی یونٹ (Weight):</label>
+                    <input type="text" id="p2_weight">
+                    <div class="hint">مثلاً: 40 کلوگرام</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
                     <label>یونٹ کا نام (Unit Name):</label>
                     <input type="text" id="p2_unit_name">
                     <div class="hint">مثلاً: بیگز</div>
                 </div>
                 <div class="form-col">
-                    <label>یونٹ کی تفصیل (Unit Description):</label>
+                    <label>اضافی نوٹ (اختیاری):</label>
                     <input type="text" id="p2_unit_desc">
-                    <div class="hint">مثلاً: 40 کلوگرام فی بیگ</div>
+                    <div class="hint">مثلاً: 40 کلوگرام فی بیگ (ہر کوالٹی کے ایسٹیمیٹ کے نیچے چھوٹا لکھا آئے گا، خالی چھوڑیں تو نہیں آئے گا)</div>
                 </div>
                 <div class="form-col">
                     <label>بیج ٹیکسٹ (Badge Text):</label>
@@ -685,6 +711,8 @@ const DEFAULT_CONFIG = {
     p1_quote: '"Reduce Heat • Stop Leaks • Protect Your Building"',
     p1_unit_name: "بالٹیاں",
     p1_unit_desc: "20 لیٹر فی بالٹی",
+    p1_unit_single: "بالٹی",
+    p1_weight: "20 کلوگرام",
     p1_video_url: "https://youtu.be/3g146_LddLo?si=Yp8QUq8paM0ipttl",
     p1_feedback_url: "https://youtube.com/playlist?list=PLrpsO5O4fToxscszum7wozp-UVZRqUBHn&si=CjgNWqXgtIaKwJ5d",
     p1_benefits: [
@@ -702,6 +730,8 @@ const DEFAULT_CONFIG = {
     p2_quote: '"مضبوطی اور ٹھنڈک کا بہترین امتزاج"',
     p2_unit_name: "بیگز",
     p2_unit_desc: "40 کلوگرام فی بیگ",
+    p2_unit_single: "بیگ",
+    p2_weight: "40 کلوگرام",
     p2_video_url: "https://youtu.be/FInGb1ymo4E?si=9hlX9FK3jZxKpInk",
     p2_feedback_url: "https://youtu.be/dyVnjFvLzVw?si=npyOXQViDHKfZb10",
     p2_variants: [
@@ -938,7 +968,9 @@ function loadSettings() {
     document.getElementById('p1_price').value = settings.p1_price || 9000;
     document.getElementById('p1_coverage').value = settings.p1_coverage || 400;
     document.getElementById('p1_unit_name').value = settings.p1_unit_name || 'بالٹیاں';
-    document.getElementById('p1_unit_desc').value = settings.p1_unit_desc || '20 لیٹر فی بالٹی';
+    document.getElementById('p1_unit_desc').value = (settings.p1_unit_desc !== undefined && settings.p1_unit_desc !== null) ? settings.p1_unit_desc : '20 لیٹر فی بالٹی';
+    document.getElementById('p1_unit_single').value = settings.p1_unit_single || 'بالٹی';
+    document.getElementById('p1_weight').value = settings.p1_weight || '20 کلوگرام';
     document.getElementById('p1_badge').value = settings.p1_badge || 'لائف: 5 سے 7 سال کی پائیدار لائف';
     document.getElementById('p1_quote').value = settings.p1_quote || '';
     document.getElementById('p1_img').value = settings.p1_img || 'default';
@@ -954,7 +986,9 @@ function loadSettings() {
     document.getElementById('p2_name').value = settings.p2_name || DEFAULT_CONFIG.p2_name;
     document.getElementById('p2_coverage').value = settings.p2_coverage || 12;
     document.getElementById('p2_unit_name').value = settings.p2_unit_name || 'بیگز';
-    document.getElementById('p2_unit_desc').value = settings.p2_unit_desc || '40 کلوگرام فی بیگ';
+    document.getElementById('p2_unit_desc').value = (settings.p2_unit_desc !== undefined && settings.p2_unit_desc !== null) ? settings.p2_unit_desc : '40 کلوگرام فی بیگ';
+    document.getElementById('p2_unit_single').value = settings.p2_unit_single || 'بیگ';
+    document.getElementById('p2_weight').value = settings.p2_weight || '40 کلوگرام';
     document.getElementById('p2_badge').value = settings.p2_badge || 'وارنٹی: لائف ٹائم پائیداری اور گارنٹی';
     document.getElementById('p2_quote').value = settings.p2_quote || '';
     document.getElementById('p2_img').value = settings.p2_img || 'default';
@@ -1030,7 +1064,9 @@ function saveSettings(mode) {
         p1_price: parseFloat(document.getElementById('p1_price').value) || 9000,
         p1_coverage: parseFloat(document.getElementById('p1_coverage').value) || 400,
         p1_unit_name: document.getElementById('p1_unit_name').value.trim() || 'بالٹیاں',
-        p1_unit_desc: document.getElementById('p1_unit_desc').value.trim() || '20 لیٹر فی بالٹی',
+        p1_unit_desc: document.getElementById('p1_unit_desc').value.trim(),
+        p1_unit_single: document.getElementById('p1_unit_single').value.trim() || 'بالٹی',
+        p1_weight: document.getElementById('p1_weight').value.trim() || '20 کلوگرام',
         p1_badge: document.getElementById('p1_badge').value.trim() || 'لائف: 5 سے 7 سال کی پائیدار لائف',
         p1_quote: document.getElementById('p1_quote').value.trim(),
         p1_img: document.getElementById('p1_img').value.trim() || 'default',
@@ -1042,7 +1078,9 @@ function saveSettings(mode) {
         p2_name: document.getElementById('p2_name').value.trim() || DEFAULT_CONFIG.p2_name,
         p2_coverage: parseFloat(document.getElementById('p2_coverage').value) || 12,
         p2_unit_name: document.getElementById('p2_unit_name').value.trim() || 'بیگز',
-        p2_unit_desc: document.getElementById('p2_unit_desc').value.trim() || '40 کلوگرام فی بیگ',
+        p2_unit_desc: document.getElementById('p2_unit_desc').value.trim(),
+        p2_unit_single: document.getElementById('p2_unit_single').value.trim() || 'بیگ',
+        p2_weight: document.getElementById('p2_weight').value.trim() || '40 کلوگرام',
         p2_badge: document.getElementById('p2_badge').value.trim() || 'وارنٹی: لائف ٹائم پائیداری اور گارنٹی',
         p2_quote: document.getElementById('p2_quote').value.trim(),
         p2_img: document.getElementById('p2_img').value.trim() || 'default',

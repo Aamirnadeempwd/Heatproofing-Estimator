@@ -549,6 +549,97 @@ body.hp-dark-body::before {
     margin: 0;
 }
 
+/* ===== Estimate breakdown (qty / per-unit price / weight / coverage / total) ===== */
+.hp-breakdown {
+    background: linear-gradient(180deg, #fffaf5 0%, #fff5f5 100%);
+    border: 1px solid #ffd6c9;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 15px 0;
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.06);
+}
+.hp-bd-head {
+    font-size: 17px;
+    font-weight: bold;
+    color: #7a2e0e;
+    margin-bottom: 10px;
+    text-align: right;
+}
+.hp-bd-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+.hp-bd-item {
+    background: #ffffff;
+    border: 1px solid #f0e2dc;
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+}
+.hp-bd-label {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+.hp-bd-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1f2937;
+    line-height: 1.6;
+}
+.hp-bd-value .eng-num { color: inherit; }
+.hp-bd-value small { font-size: 14px; font-weight: normal; color: #6b7280; }
+.hp-bd-total {
+    margin-top: 12px;
+    background: #d32f2f;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.hp-bd-total .eng-num { color: #ffffff; font-size: 26px; }
+.hp-bd-formula {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #6b7280;
+    text-align: center;
+    unicode-bidi: plaintext;
+    line-height: 1.8;
+}
+.hp-bd-note {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+}
+.hp-bd-note:empty, .hp-bd-note.hp-hidden { display: none; }
+.hp-variant .hp-breakdown { margin: 8px 0 0 0; }
+.hp-dark-theme .hp-breakdown { background: #252525; border-color: #3a3a3a; box-shadow: none; }
+.hp-dark-theme .hp-bd-head { color: #ffb59b; }
+.hp-dark-theme .hp-bd-item { background: #1b1b1b; border-color: #333; }
+.hp-dark-theme .hp-bd-label, .hp-dark-theme .hp-bd-value small, .hp-dark-theme .hp-bd-formula, .hp-dark-theme .hp-bd-note { color: #b5b5b5; }
+.hp-dark-theme .hp-bd-value { color: #ffffff; }
+@media (max-width: 360px) {
+    .hp-bd-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+    .hp-breakdown { padding: 10px !important; }
+    .hp-bd-item { padding: 8px 10px; }
+    .hp-bd-value { font-size: 18px; }
+    .hp-bd-total { font-size: 18px; }
+    .hp-bd-total .eng-num { font-size: 22px; }
+}
+
 .hp-details,
 .hp-variant {
     background: #f8f9fa;
@@ -2004,13 +2095,32 @@ body .hp-estimator-container .hp-video-group > a.hp-btn * { text-decoration: non
                     <span id="hpProd1Badge" class="hp-badge">لائف: 5 سے 7 سال کی پائیدار لائف</span>
                     <span id="hpProd1Quote" class="hp-quote">"Reduce Heat • Stop Leaks • Protect Your Building"</span>
                 </div>
-                <div class="hp-estimate-row">
-                    <p class="hp-quantity-inline">
-                        <strong>درکار مقدار:</strong> 
-                        <span id="coatingBuckets" class="eng-num">0</span> <span id="hpProd1UnitName">بالٹیاں</span> 
-                        <span id="hpProd1UnitDesc" class="small-tag">(20 لیٹر فی بالٹی • کوریج <span id="hpProd1CoverageText">400</span> مربع فٹ)</span>
-                    </p>
-                    <p class="hp-price-inline">قیمت: <span id="coatingCost" class="eng-num">0</span> روپے</p>
+                <div class="hp-breakdown" id="hpProd1Breakdown">
+                    <div class="hp-bd-head">📋 آپ کی چھت کے لیے ایسٹیمیٹ</div>
+                    <div class="hp-bd-grid">
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">درکار مقدار</span>
+                            <span class="hp-bd-value"><span id="coatingBuckets" class="eng-num">0</span> <small id="hpProd1UnitName">بالٹیاں</small></span>
+                        </div>
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">قیمت فی <span class="hp-p1-single">بالٹی</span></span>
+                            <span class="hp-bd-value"><span id="hpProd1UnitPrice" class="eng-num">0</span> <small>روپے</small></span>
+                        </div>
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">وزن فی <span class="hp-p1-single">بالٹی</span></span>
+                            <span class="hp-bd-value" id="hpProd1Weight">20 کلوگرام</span>
+                        </div>
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">کوریج فی <span class="hp-p1-single">بالٹی</span></span>
+                            <span class="hp-bd-value"><span id="hpProd1CoverageText" class="eng-num">400</span> <small>مربع فٹ</small></span>
+                        </div>
+                    </div>
+                    <div class="hp-bd-total">
+                        <span>ٹوٹل قیمت</span>
+                        <span><span id="coatingCost" class="eng-num">0</span> روپے</span>
+                    </div>
+                    <div class="hp-bd-formula" id="hpProd1Formula"></div>
+                    <div class="hp-bd-note" id="hpProd1UnitDesc"></div>
                 </div>
                 <div class="hp-details">
                     <p class="hp-ben-title"><strong>اہم خصوصیات و فوائد (Key Benefits):</strong></p>
@@ -2179,6 +2289,8 @@ window.__PUBLISHED = window.__PUBLISHED || null;
         p1_quote: '"Reduce Heat • Stop Leaks • Protect Your Building"',
         p1_unit_name: "بالٹیاں",
         p1_unit_desc: "20 لیٹر فی بالٹی",
+        p1_unit_single: "بالٹی",
+        p1_weight: "20 کلوگرام",
         p1_video_url: "https://youtu.be/3g146_LddLo?si=Yp8QUq8paM0ipttl",
         p1_feedback_url: "https://youtube.com/playlist?list=PLrpsO5O4fToxscszum7wozp-UVZRqUBHn&si=CjgNWqXgtIaKwJ5d",
         p1_benefits: [
@@ -2196,6 +2308,8 @@ window.__PUBLISHED = window.__PUBLISHED || null;
         p2_quote: '"مضبوطی اور ٹھنڈک کا بہترین امتزاج"',
         p2_unit_name: "بیگز",
         p2_unit_desc: "40 کلوگرام فی بیگ",
+        p2_unit_single: "بیگ",
+        p2_weight: "40 کلوگرام",
         p2_video_url: "https://youtu.be/FInGb1ymo4E?si=9hlX9FK3jZxKpInk",
         p2_feedback_url: "https://youtu.be/dyVnjFvLzVw?si=npyOXQViDHKfZb10",
         p2_variants: [
@@ -2248,25 +2362,58 @@ window.__PUBLISHED = window.__PUBLISHED || null;
 
     var hpSettings = getActiveSettings();
 
-    function renderDynamicChipsVariants(variants, coverage, unitDesc) {
+    function renderDynamicChipsVariants(variants, coverage, unitDesc, cfg) {
         const container = document.getElementById('hpChipsVariants');
         if (!container) return;
-        
+        const st = cfg || getActiveSettings();
+        const unitPlural = st.p2_unit_name || DEFAULT_CONFIG.p2_unit_name;
+        const unitOne = st.p2_unit_single || DEFAULT_CONFIG.p2_unit_single;
+        const weight = st.p2_weight || DEFAULT_CONFIG.p2_weight;
+        const note = unitDesc ? `<div class="hp-bd-note">${unitDesc}</div>` : '';
+
         container.innerHTML = variants.map((v, i) => `
             <div class="hp-variant" data-variant-index="${i}">
                 <h4>${v.name}</h4>
-                <div class="hp-estimate-row">
-                    <p class="hp-quantity-inline">
-                        <strong>درکار مقدار:</strong> 
-                        <span class="eng-num chips-bags-count">0</span> بیگز 
-                        <span class="small-tag">(${unitDesc || '40 کلوگرام فی بیگ'} • کوریج ${coverage} مربع فٹ)</span>
-                    </p>
-                    <p class="hp-price-inline">
-                        قیمت: <span class="eng-num chips-variant-cost" data-price="${v.price}">0</span> روپے
-                    </p>
+                <div class="hp-breakdown">
+                    <div class="hp-bd-grid">
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">درکار مقدار</span>
+                            <span class="hp-bd-value"><span class="eng-num chips-bags-count">0</span> <small>${unitPlural}</small></span>
+                        </div>
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">قیمت فی ${unitOne}</span>
+                            <span class="hp-bd-value"><span class="eng-num chips-unit-price">${formatCurrency(parseFloat(v.price) || 0)}</span> <small>روپے</small></span>
+                        </div>
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">وزن فی ${unitOne}</span>
+                            <span class="hp-bd-value">${weight}</span>
+                        </div>
+                        <div class="hp-bd-item">
+                            <span class="hp-bd-label">کوریج فی ${unitOne}</span>
+                            <span class="hp-bd-value"><span class="eng-num">${coverage}</span> <small>مربع فٹ</small></span>
+                        </div>
+                    </div>
+                    <div class="hp-bd-total">
+                        <span>ٹوٹل قیمت</span>
+                        <span><span class="eng-num chips-variant-cost" data-price="${v.price}">0</span> روپے</span>
+                    </div>
+                    <div class="hp-bd-formula chips-formula"></div>
+                    ${note}
                 </div>
             </div>
         `).join('');
+    }
+
+    function updateProd1Labels(s) {
+        const unitPlural = s.p1_unit_name || DEFAULT_CONFIG.p1_unit_name;
+        const unitOne = s.p1_unit_single || DEFAULT_CONFIG.p1_unit_single;
+        const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.innerText = txt; };
+        setText('hpProd1UnitName', unitPlural);
+        document.querySelectorAll('.hp-p1-single').forEach(el => { el.innerText = unitOne; });
+        setText('hpProd1UnitPrice', formatCurrency(parseFloat(s.p1_price) || 9000));
+        setText('hpProd1Weight', s.p1_weight || DEFAULT_CONFIG.p1_weight);
+        setText('hpProd1CoverageText', s.p1_coverage || 400);
+        setText('hpProd1UnitDesc', s.p1_unit_desc || '');
     }
 
     function renderOption1Benefits(benefits) {
@@ -2299,11 +2446,7 @@ window.__PUBLISHED = window.__PUBLISHED || null;
         const covText1 = document.getElementById('hpProd1CoverageText');
         if (covText1) covText1.innerText = s.p1_coverage || DEFAULT_CONFIG.p1_coverage;
 
-        const p1UnitName = document.getElementById('hpProd1UnitName');
-        if (p1UnitName) p1UnitName.innerText = s.p1_unit_name || 'بالٹیاں';
-
-        const p1UnitDesc = document.getElementById('hpProd1UnitDesc');
-        if (p1UnitDesc) p1UnitDesc.innerHTML = `(${s.p1_unit_desc || '20 لیٹر فی بالٹی'} • کوریج <span id="hpProd1CoverageText">${s.p1_coverage || 400}</span> مربع فٹ)`;
+        updateProd1Labels(s);
 
         const p1Badge = document.getElementById('hpProd1Badge');
         if (p1Badge) p1Badge.innerText = s.p1_badge || DEFAULT_CONFIG.p1_badge;
@@ -2353,7 +2496,7 @@ window.__PUBLISHED = window.__PUBLISHED || null;
         if (p2Feedback && s.p2_feedback_url) p2Feedback.href = s.p2_feedback_url;
 
         renderOption2Benefits(s.p2_benefits || DEFAULT_CONFIG.p2_benefits);
-        renderDynamicChipsVariants(s.p2_variants || DEFAULT_CONFIG.p2_variants, s.p2_coverage || 12, s.p2_unit_desc);
+        renderDynamicChipsVariants(s.p2_variants || DEFAULT_CONFIG.p2_variants, s.p2_coverage || 12, s.p2_unit_desc, s);
 
         // 3. Social, Contacts & Powered By
         const callBtn = document.getElementById('hpSocialCall');
@@ -2485,9 +2628,15 @@ window.__PUBLISHED = window.__PUBLISHED || null;
         const coatingBuckets = Math.ceil(area / coatingDivisor);
         const coatingCost = coatingBuckets * coatingPrice;
         currentEstimates.coating = coatingCost;
+        currentEstimates.coatingQty = coatingBuckets;
+        currentEstimates.coatingUnitPrice = coatingPrice;
 
         document.getElementById('coatingBuckets').innerText = coatingBuckets;
         document.getElementById('coatingCost').innerText = formatCurrency(coatingCost);
+        const p1UnitPriceEl = document.getElementById('hpProd1UnitPrice');
+        if (p1UnitPriceEl) p1UnitPriceEl.innerText = formatCurrency(coatingPrice);
+        const p1Formula = document.getElementById('hpProd1Formula');
+        if (p1Formula) p1Formula.innerText = `${coatingBuckets} ${s.p1_unit_name || 'بالٹیاں'} × ${formatCurrency(coatingPrice)} روپے = ${formatCurrency(coatingCost)} روپے`;
 
         // --- Product 2: Option 2 (Dynamic Variants) ---
         const chipsDivisor = parseFloat(s.p2_coverage) || 12;
@@ -2511,8 +2660,12 @@ window.__PUBLISHED = window.__PUBLISHED || null;
 
                 const bagsSpan = row.querySelector('.chips-bags-count');
                 const costSpan = row.querySelector('.chips-variant-cost');
+                const unitPriceSpan = row.querySelector('.chips-unit-price');
+                const formulaEl = row.querySelector('.chips-formula');
                 if (bagsSpan) bagsSpan.innerText = chipsBags;
                 if (costSpan) costSpan.innerText = formatCurrency(total);
+                if (unitPriceSpan) unitPriceSpan.innerText = formatCurrency(price);
+                if (formulaEl) formulaEl.innerText = `${chipsBags} ${s.p2_unit_name || 'بیگز'} × ${formatCurrency(price)} روپے = ${formatCurrency(total)} روپے`;
             }
         });
 
@@ -2540,10 +2693,10 @@ window.__PUBLISHED = window.__PUBLISHED || null;
 
         if (productType === 'coating') {
             productName = s.p1_name || "Option 1: EngiShield";
-            productDetails = `(قیمت: ${formatCurrency(currentEstimates.coating)} روپے)`;
+            productDetails = `(${currentEstimates.coatingQty} ${s.p1_unit_name || 'بالٹیاں'} × ${formatCurrency(currentEstimates.coatingUnitPrice)} روپے فی ${s.p1_unit_single || 'بالٹی'} = ${formatCurrency(currentEstimates.coating)} روپے)`;
         } else if (productType === 'chips') {
             productName = s.p2_name || "Option 2: Solar Chips";
-            const vDetails = (currentEstimates.chipsVariants || []).map(v => `${v.name}: ${formatCurrency(v.total)} روپے`).join('، ');
+            const vDetails = (currentEstimates.chipsVariants || []).map(v => `${v.name}: ${v.bags} ${s.p2_unit_name || 'بیگز'} × ${formatCurrency(v.price)} روپے = ${formatCurrency(v.total)} روپے`).join('، ');
             productDetails = `(${vDetails})`;
         }
 
