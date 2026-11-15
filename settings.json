@@ -11,10 +11,10 @@
   "p1_video_url": "https://youtu.be/3g146_LddLo?si=Yp8QUq8paM0ipttl",
   "p1_feedback_url": "https://youtube.com/playlist?list=PLrpsO5O4fToxscszum7wozp-UVZRqUBHn&si=CjgNWqXgtIaKwJ5d",
   "p1_benefits": [
-    "اے سی کے استعمال میں 50 فیصد تک کمی اور بجلی کے بل میں زبردست بچت۔",
-    "کمروں کے درجہ حرارت میں 8°C سے 12°C تک نمایاں کمی (Cooler Rooms)۔",
-    "سورج کی مضر شعاعوں (UV Rays) اور شدید تپش کو واپس منعکس کرنا (Solar Reflection)۔",
-    "لگانے کے بعد تپتی دوپہر میں بھی چھت پر ننگے پاؤں چلنے کی سہولت۔"
+    "AC کے استعمال میں    %50 تک کمی  بجلی کے بل میں  زبردست بچت",
+    "کمروں کے درجہ حرارت میں 8°C سے 12°C تک نمایاں کمی اور ٹھنڈک",
+    "سورج کی  مضر شعاعوں ،الٹرا وائلٹ ریز اور شدید تپش کو واپس منعکس کرنا",
+    "لگانے کے بعد تپتی دوپہر میں بھی چھت پر ننگے پاؤں چلنا ہوا ممکن"
   ],
   "p2_name": "2. Option 2: Solar Chips (Premium Protection)",
   "p2_coverage": 12,
@@ -29,26 +29,26 @@
     {
       "id": "var_special",
       "name": "سپیشل کوالٹی",
-      "price": 2800
+      "price": 2500
     },
     {
       "id": "var_super",
       "name": "سپر فیس",
-      "price": 2300
+      "price": 2000
     }
   ],
   "p2_benefits": [
     "100% واٹر پروفنگ اور ہیٹ پروفنگ کا دوہرا تحفظ۔",
     "چھت سے آنے والی تپش کو سو فیصد روکے۔",
-    "گھر کی چھتوں کو سیم اور نمی سے ہمیشہ کے لیے محفوظ رکھے۔",
+    "گھر کی چھت کو سیم اور نمی سے ہمیشہ کے لیے محفوظ رکھے۔",
     "بجلی کے بھاری بلوں (AC کے استعمال) میں زبردست کمی۔"
   ],
-  "call_phone_number": "030061667788",
-  "whatsapp_number": "923006786890",
+  "call_phone_number": "03061667788",
+  "whatsapp_number": "923061667788",
   "powered_company": "EngiCore",
-  "phone_display": "0515421151 - 03006786890",
-  "powered_city": "islamabad",
+  "phone_display": "03061667788",
+  "powered_city": "ٰIslamabad   Lahore   Karachi",
   "youtube_url": "https://youtube.com/@coolyourhome7682?si=hq0Qlom74QKE7RwW",
   "facebook_url": "https://www.facebook.com/share/183cz1o861/",
-  "website_url": "https://sober.pk"
+  "website_url": "https://engicore.pk"
 }
