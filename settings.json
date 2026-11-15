@@ -11,9 +11,9 @@
   "p1_video_url": "https://youtu.be/3g146_LddLo?si=Yp8QUq8paM0ipttl",
   "p1_feedback_url": "https://youtube.com/playlist?list=PLrpsO5O4fToxscszum7wozp-UVZRqUBHn&si=CjgNWqXgtIaKwJ5d",
   "p1_benefits": [
-    "AC کے استعمال میں    %50 تک کمی  بجلی کے بل میں  بچت۔",
-    "کمروں کے درجہ حرارت میں 8°C سے 12°C تک نمایاں کمی",
-    "سورج کی  الٹرا وائلٹ ریز اور شدید تپش کو واپس منعکس کرنا",
+    "اے سی کے استعمال میں 50 فیصد تک کمی اور بجلی کے بل میں زبردست بچت۔",
+    "کمروں کے درجہ حرارت میں 8°C سے 12°C تک نمایاں کمی (Cooler Rooms)۔",
+    "سورج کی مضر شعاعوں (UV Rays) اور شدید تپش کو واپس منعکس کرنا (Solar Reflection)۔",
     "لگانے کے بعد تپتی دوپہر میں بھی چھت پر ننگے پاؤں چلنے کی سہولت۔"
   ],
   "p2_name": "2. Option 2: Solar Chips (Premium Protection)",
@@ -29,12 +29,12 @@
     {
       "id": "var_special",
       "name": "سپیشل کوالٹی",
-      "price": 2500
+      "price": 2800
     },
     {
       "id": "var_super",
       "name": "سپر فیس",
-      "price": 2000
+      "price": 2300
     }
   ],
   "p2_benefits": [
@@ -44,11 +44,11 @@
     "بجلی کے بھاری بلوں (AC کے استعمال) میں زبردست کمی۔"
   ],
   "call_phone_number": "030061667788",
-  "whatsapp_number": "9230961667788",
+  "whatsapp_number": "923006786890",
   "powered_company": "EngiCore",
-  "phone_display": "0515421151 - 03061667788",
+  "phone_display": "0515421151 - 03006786890",
   "powered_city": "islamabad",
   "youtube_url": "https://youtube.com/@coolyourhome7682?si=hq0Qlom74QKE7RwW",
   "facebook_url": "https://www.facebook.com/share/183cz1o861/",
-  "website_url": "https://engicore.pk"
+  "website_url": "https://sober.pk"
 }
